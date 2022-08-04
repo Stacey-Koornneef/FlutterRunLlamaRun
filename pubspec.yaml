@@ -1,0 +1,17 @@
+name: testing
+description: testing flame game
+version: 0.0.0
+publish_to: none
+
+environment:
+  sdk: ^2.15.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flame: ^1.0.0
+
+flutter:
+  assets:
+    - assets/
+    - assets/images/
