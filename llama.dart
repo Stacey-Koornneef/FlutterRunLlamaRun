@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -13,6 +14,7 @@ import 'components/levelOne.dart';
 import 'components/spriteTextButton.dart';
 import 'components/getBlocks.dart';
 import 'components/movementBlocks.dart';
+import 'components/runBlocksButton.dart';
 
 
 class LlamaGame extends FlameGame with HasTappables {
@@ -31,6 +33,12 @@ class LlamaGame extends FlameGame with HasTappables {
   //for checking when the buttons have run
   bool getBlocksRun = false;
   bool runBlocksRunning = false;
+
+  var instructions = ["FORWARD","FORWARD","PICKUP"];
+  var testInstructions = ["FORWARD", "LEFT", "RIGHT"];
+
+  @override
+  Color backgroundColor() => const Color(0x00000000);
 
 
   @override
@@ -73,6 +81,14 @@ class LlamaGame extends FlameGame with HasTappables {
       textYShift: 100,
     );*/
 
+    final character = Character()
+      ..size = (squareSize*1.75)
+      ..position = Vector2(
+        squareGap + (0+3.75) * (squareWidth + squareGap),
+        (squareHeight*4) + 3.4 * squareGap,);
+
+
+    //add(character);
 
     runBlocksButton = SpriteTextButton(
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
@@ -81,6 +97,9 @@ class LlamaGame extends FlameGame with HasTappables {
       position: Vector2(50, 30),
       onPressed: () {
         print("Run Blocks");
+        //character.add(MoveByEffect(Vector2(0, -1200), EffectController(duration: 1)),);
+        //character.add(MoveByEffect(Vector2(-1200, 0), EffectController(duration: 1)),);
+        RunBlocksButton(character, instructions);
 
       },
       text: "Run, Llama, Run",
@@ -97,7 +116,7 @@ class LlamaGame extends FlameGame with HasTappables {
 
     final world = World()
       //..add(blocks)
-      //..add(character)
+      ..add(character)
       //..add(apple)
       ..addAll(components)
       //..add(getBlocksButton!)
