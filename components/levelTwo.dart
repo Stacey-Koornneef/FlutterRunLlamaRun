@@ -6,7 +6,7 @@ import 'pavementBlocks.dart';
 import 'character.dart';
 import 'apple.dart';
 
-class LevelOne  {
+class LevelTwo  {
   static const double squareWidth = 125.0;
   static const double squareHeight = 125.0;
   static const double squareGap = 5.0;
@@ -22,8 +22,8 @@ class LevelOne  {
   //var blocks = new List();
 
 
-  LevelOne(){
-    print("in level one");
+  LevelTwo(){
+    print("in level two");
     final B00 = GrassBlocks()
       ..size = squareSize
       ..position = Vector2((3 + 2) * (squareWidth + squareGap) + squareGap, squareGap);
@@ -90,14 +90,14 @@ class LevelOne  {
 
     blocks.add(B14);
 
-    final B20 = GrassBlocks()
+    final B20 = PavementBlocks()
       ..size = squareSize
       ..position = Vector2(squareGap + (3+2) * (squareWidth + squareGap),
         (squareHeight*2) + 3 * squareGap,);
 
     blocks.add(B20);
 
-    final B21 = GrassBlocks()
+    final B21 = PavementBlocks()
       ..size = squareSize
       ..position = Vector2(squareGap + (4+2) * (squareWidth + squareGap),
         (squareHeight*2) + 3 * squareGap,);
@@ -205,8 +205,8 @@ class LevelOne  {
 
     final apple = Apple()
       ..size = Vector2(squareHeight/2, squareHeight/2)
-      ..position = Vector2(squareGap + (5.25+2) * (squareWidth + squareGap),
-        (squareHeight*2.3) + 3 * squareGap,);
+      ..position = Vector2(squareGap + (3.25+2) * (squareWidth + squareGap),
+        (squareHeight*2.3) + 3 * squareGap,);;
 
     blocks.add(apple);
 

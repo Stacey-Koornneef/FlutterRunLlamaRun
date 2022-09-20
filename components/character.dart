@@ -24,7 +24,7 @@ class Character extends SpriteAnimationComponent {
 
   Character()
       : super(
-    priority: 4,
+    priority: 100,
     playing: true,
     scale: Vector2(1, 1),
     size: Vector2.all(25),
