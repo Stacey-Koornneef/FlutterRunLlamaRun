@@ -6,7 +6,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import 'components/character.dart';
-import 'components/board.dart';
+//import 'components/board.dart';
 import 'components/grassBlocks.dart';
 import 'components/pavementBlocks.dart';
 import 'components/apple.dart';
@@ -16,14 +16,14 @@ import 'components/spriteTextButton.dart';
 import 'components/getBlocks.dart';
 import 'components/movementBlocks.dart';
 import 'components/runBlocksButton.dart';
-
+import 'components/textRecognition2.dart';
 
 class LlamaGame extends FlameGame with HasTappables {
   //setting up board
-  static const double squareWidth = 125.0;
-  static const double squareHeight = 125.0;
-  static const double squareGap = 5.0;
-  static const double squareRadius = 10.0;
+  static const double squareWidth = 80;
+  static const double squareHeight = 80;
+  static const double squareGap = 3;
+  static const double squareRadius = 3.0;
   static final Vector2 squareSize = Vector2(squareWidth, squareHeight);
   int level = 1;
   SpriteTextButton? getBlocksButton;
@@ -35,8 +35,10 @@ class LlamaGame extends FlameGame with HasTappables {
   bool getBlocksRun = false;
   bool runBlocksRunning = false;
 
-  var instructions = ["FORWARD","FORWARD","PICKUP"];
+  //var instructions = ["FORWARD","FORWARD","PICKUP"];
   var testInstructions = ["FORWARD", "LEFT", "RIGHT"];
+  //var instructions = [];
+  var newInstructions = [];
 
   @override
   Color backgroundColor() => const Color(0x00000000);
@@ -64,13 +66,23 @@ class LlamaGame extends FlameGame with HasTappables {
     getBlocksButton = SpriteTextButton(
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
       priority: 5,
-      scale: Vector2(0.15,0.15),
+      scale: Vector2(0.1,0.1),
       position: Vector2(50,30),
       onPressed: () {
         getBlocksRun = true;
         print("Get Blocks");
 
-        var getBlocks = GetBlocks(instructions);
+        //var getBlocks = GetBlocks(instructions);
+        var response = TextRecognition2();
+        print("response after text recognition: " + response.toString());
+        var result = response.instructions;
+        print("INSTRUCTIONS: " + result.toString());
+        //instructions = ["FORWARD"];
+        for( var i in result){
+          newInstructions.add(i);
+        }
+        print("llama instructions = " + newInstructions.toString());
+        var getBlocks = GetBlocks(newInstructions);
         var getBlocksList = getBlocks.blocks;
         //world.overlay.add(blockOne);
 
@@ -88,7 +100,9 @@ class LlamaGame extends FlameGame with HasTappables {
     //..size = (squareSize*1.75)
       ..size = (squareSize * 1.75)
       ..position = Vector2(squareGap + (4.65+2) * (squareWidth + squareGap),
-        (squareHeight*3.7) + 5 * squareGap,);
+        (squareHeight*3.7) + 3 * squareGap,);
+    //Vector2(squareGap + (6+2) * (squareWidth + squareGap),
+      //(squareHeight*4) + 3 * squareGap,);
 
 
     //add(character);
@@ -96,12 +110,12 @@ class LlamaGame extends FlameGame with HasTappables {
     runBlocksButton = SpriteTextButton(
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
       priority: 6,
-      scale: Vector2(0.15,0.15),
-      position: Vector2(780, 700),
+      scale: Vector2(0.1,0.1),
+      position: Vector2(495, 425),
       onPressed: () {
         print("Run Blocks");
         if(getBlocksRun == true){
-          var getComponents = RunBlocksButton(character, instructions);
+          var getComponents = RunBlocksButton(character, newInstructions);
           var newComponents = getComponents.newComponents;
           for(var element in newComponents){
             add(element);
@@ -110,8 +124,8 @@ class LlamaGame extends FlameGame with HasTappables {
         }
       },
       text: "Run, Llama, Run",
-      textXShift: -700,
-      textYShift: -550,
+      textXShift: -430,
+      textYShift: -250,
     );
 
     add(runBlocksButton!);

@@ -26,7 +26,7 @@ class RunBlocksButton extends SpriteComponent{
 
       if(i == "FORWARD"){
         //Timer(7.0, onTick: () {
-          moveForward(character);
+        moveForward(character);
         //});
 
         //sleep(const Duration(seconds: 2));
@@ -55,7 +55,7 @@ class RunBlocksButton extends SpriteComponent{
   //moves the character one block up over 1 second
   moveForward(Character character){
     print("in moveforward");
-    character.add(MoveByEffect(Vector2(0, -140), EffectController(duration: 1)),);
+    character.add(MoveByEffect(Vector2(0, -700), EffectController(duration: 1)),);
 
   }
 
@@ -63,12 +63,12 @@ class RunBlocksButton extends SpriteComponent{
   moveLeft(Character character){
     print("in moveleft");
     //character.add(RotateEffect.by(pi/2, EffectController(duration: 0.5)));
-    character.add(MoveByEffect(Vector2(-1200, 0), EffectController(duration: 1)),);
+    character.add(MoveByEffect(Vector2(-600, 0), EffectController(duration: 1)),);
     //character.add(RotateEffect.by(pi/2, EffectController(duration: 0.5)));
   }
 
   moveRight(Character character){
-    character.add(MoveByEffect(Vector2(1200, 0), EffectController(duration: 1)),);
+    character.add(MoveByEffect(Vector2(600, 0), EffectController(duration: 1)),);
   }
 
   pickUp(Character character){
@@ -77,8 +77,8 @@ class RunBlocksButton extends SpriteComponent{
     var continueButton = SpriteTextButton(
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
       priority: 200,
-      scale: Vector2(0.15,0.15),
-      position: Vector2(50,30),
+      scale: Vector2(0.075,0.075),
+      position: Vector2(25,15),
       onPressed: () {
         print("Continuing");
         var newBoard = [];
@@ -89,8 +89,8 @@ class RunBlocksButton extends SpriteComponent{
         }
       },
       text: "Continue",
-      textXShift: 500,
-      textYShift: 100,
+      textXShift: 250,
+      textYShift: 50,
     );
 
     newComponents.add(continueButton);

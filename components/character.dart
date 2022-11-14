@@ -24,13 +24,13 @@ class Character extends SpriteAnimationComponent {
 
   Character()
       : super(
-    priority: 100,
+    priority: 4,
     playing: true,
     scale: Vector2(1, 1),
-    size: Vector2.all(25),
+    size: Vector2.all(12.5),
   ) {
     animation = SpriteAnimation.spriteList(runSprites, stepTime: 0.5);
-    position = Vector2(175.0, 175.0);
+    position = Vector2(87.5, 87.5);
     runAnimation = SpriteAnimation.spriteList(runSprites,
         stepTime: 0.5);
   }
