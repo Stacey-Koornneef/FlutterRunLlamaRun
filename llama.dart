@@ -68,12 +68,12 @@ class LlamaGame extends FlameGame with HasTappables {
       priority: 5,
       scale: Vector2(0.1,0.1),
       position: Vector2(50,30),
-      onPressed: () {
+      onPressed: () async{
         getBlocksRun = true;
         print("Get Blocks");
 
         //var getBlocks = GetBlocks(instructions);
-        var response = TextRecognition2();
+        /*var response = TextRecognition2();
         print("response after text recognition: " + response.toString());
         var result = response.instructions;
         print("INSTRUCTIONS: " + result.toString());
@@ -84,11 +84,17 @@ class LlamaGame extends FlameGame with HasTappables {
         print("llama instructions = " + newInstructions.toString());
         var getBlocks = GetBlocks(newInstructions);
         var getBlocksList = getBlocks.blocks;
-        //world.overlay.add(blockOne);
+        //world.overlay.add(blockOne);*/
+        //var getBlocksList = await getInstructions();
 
-        for(var element in getBlocksList){
-          add(element);
-        }
+        await getInstructions().then((value) {
+          for(var element in value){
+            newInstructions.add(element);
+            print("element" + element.toString());
+          }
+          // maybe setState()
+
+        });
       },
       text: "Get Blocks",
       textXShift: 400,
@@ -167,6 +173,23 @@ class LlamaGame extends FlameGame with HasTappables {
     // add(camera);
 
   }
+  Future<List> getInstructions() async{
+    var response = await TextRecognition2();
+    print("response after text recognition: " + response.toString());
+    print(response);
+    var result = response.instructions;
+    print("INSTRUCTIONS: " + result.toString());
+    //instructions = ["FORWARD"];
+    for(var i in result){
+      newInstructions.add(i);
+    }
+    print("llama instructions = " + newInstructions.toString());
+    var getBlocks = GetBlocks(newInstructions);
+    var getBlocksList = getBlocks.blocks;
+
+    return (getBlocksList);
+  }
+
 
 
 }
