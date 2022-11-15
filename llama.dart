@@ -88,6 +88,9 @@ class LlamaGame extends FlameGame with HasTappables {
         //var getBlocksList = await getInstructions();
 
         await getInstructions().then((value) {
+          print("in await");
+          print("value type: " + value.runtimeType.toString());
+          print("value " + value.toString());
           for(var element in value){
             newInstructions.add(element);
             print("element" + element.toString());
@@ -174,7 +177,16 @@ class LlamaGame extends FlameGame with HasTappables {
 
   }
   Future<List> getInstructions() async{
+    print("in getInstructions");
     var response = await TextRecognition2();
+
+    /*await TextRecognition2().then(response) {
+      print("response after text recognition: " + response.toString());
+      print(response);
+      var result = response.instructions;
+      print("INSTRUCTIONS: " + result.toString());
+      };*/
+
     print("response after text recognition: " + response.toString());
     print(response);
     var result = response.instructions;

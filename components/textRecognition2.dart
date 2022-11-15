@@ -25,7 +25,7 @@ class TextRecognition2 extends SpriteComponent{
 
 var instructions = [];
 
-  TextRecognition2() {
+  TextRecognition2(){
     print("in text recognition2");
     runTextRecognition();
     //print(instructions);
