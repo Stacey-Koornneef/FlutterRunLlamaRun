@@ -21,18 +21,22 @@ import 'package:image_picker/image_picker.dart';
 
 
 
-class TextRecognition2 extends SpriteComponent{
+class TextRecognition2 extends ChangeNotifier{
 
 var instructions = [];
+var blocks = [];
 
   TextRecognition2(){
     print("in text recognition2");
-    runTextRecognition();
     //print(instructions);
 
   }
 
-  runTextRecognition() async{
+  Future setup() async{
+    runTextRecognition().then((value) => null);
+  }
+
+  Future runTextRecognition() async{
     XFile? photo = await GetImage();
     print("type of get image");
     print(photo.runtimeType);
@@ -41,38 +45,58 @@ var instructions = [];
   Future<XFile?> GetImage() async {
     print("getImage");
     final ImagePicker _picker = ImagePicker();
+    print('debug1');
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+    print('debug2');
     //return photo;
-    changeFile(photo!);
+    changeFile(photo!).then((value) => null);
+    print('debug3');
   }
 
-  changeFile(XFile image) async{
+  Future changeFile(XFile image) async{
     print("in changefile");
     File? file = File(image!.path);
     print(file.runtimeType);
     //return file;
-    getData(file);
+    getData(file).then((value) => null);
   }
 
-  getData(File file) async{
+  Future getData(File file) async{
     print("in getdata");
     var data = [];
     TextRecognition _textRecognition = TextRecognition();
     final inputImage = InputImage.fromFile(file);
     //String result = await SimpleOcrPlugin.performOCR(file.path);
     var result2 = await _textRecognition.process(inputImage);
+    Future.delayed(Duration(milliseconds: 3000), () {
+      print("delayed");
+      data.add(result2?.text);
+      print(data);
+      CleanData(data).then((value) => null);
+    });
     //_startRecognition(inputImage);
     //print("RESULT:" + result.toString());
     //print(result);
     //instructions.add(result2?.text);
-    data.add(result2?.text);
+    /*data.add(result2?.text);
     print(data);
-    CleanData(data);
+    CleanData(data).then((value) => null);*/
     //print("Instructions " + instructions.toString());
     //print(result2?.text);
     //print(result.runtimeType);
   }
 
+  List<dynamic> get instruction => instructions;
+
+  set instruction(data){
+    instructions = data;
+    notifyListeners();
+  }
+
+  addInstructions(newInstruction){
+    instructions.add(newInstruction);
+    notifyListeners();
+  }
 
 
   /*Future<void> _startRecognition(InputImage image) async {
@@ -124,7 +148,7 @@ var instructions = [];
     );
   }*/
 
-  CleanData(List data){
+  Future CleanData(List data) async{
     print("In CLEAN DATA");
     var newData = [];
     for(var x in data){
@@ -132,11 +156,15 @@ var instructions = [];
     }
     print("newData = " + newData.toString());
     //List<String> newData = data.split('/n');
+    var position = 125.0;
     for(var i in newData){
       print("i = " + i.toString());
       print("i type = " + i.runtimeType.toString());
       if(i == "FORWARD" || i == "LEFT" || i == "RIGHT" || i == "PICKUP" || i == "PICK UP"){
         instructions.add(i);
+        //var block = GetBlocks(i, position);
+        //blocks.add(block);
+        position = position + 75.0;
         print("in loop");
       }
     }
@@ -144,38 +172,7 @@ var instructions = [];
     print(instructions);
   }
 }
-class TextRecognitionState extends ChangeNotifier {
-  InputImage? _image;
-  RecognizedText? _data;
-  bool _isProcessing = false;
 
-  InputImage? get image => _image;
-  RecognizedText? get data => _data;
-  String get text => _data!.text;
-  bool get isNotProcessing => !_isProcessing;
-  bool get isNotEmpty => _data != null && text.isNotEmpty;
-
-  void startProcessing() {
-    _isProcessing = true;
-    notifyListeners();
-  }
-
-  void stopProcessing() {
-    _isProcessing = false;
-    notifyListeners();
-  }
-
-  set image(InputImage? image) {
-    _image = image;
-    notifyListeners();
-  }
-
-  set data(RecognizedText? data) {
-    _data = data;
-    print(data);
-    notifyListeners();
-  }
-}
 
 
 

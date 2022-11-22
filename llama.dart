@@ -1,9 +1,12 @@
+//import 'dart:html';
+
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+//import 'package:provider/provider.dart';
 
 import 'components/character.dart';
 //import 'components/board.dart';
@@ -17,6 +20,9 @@ import 'components/getBlocks.dart';
 import 'components/movementBlocks.dart';
 import 'components/runBlocksButton.dart';
 import 'components/textRecognition2.dart';
+import 'package:async/async.dart';
+import 'dart:async';
+import 'package:flame/timer.dart';
 
 class LlamaGame extends FlameGame with HasTappables {
   //setting up board
@@ -35,14 +41,40 @@ class LlamaGame extends FlameGame with HasTappables {
   bool getBlocksRun = false;
   bool runBlocksRunning = false;
 
-  //var instructions = ["FORWARD","FORWARD","PICKUP"];
-  var testInstructions = ["FORWARD", "LEFT", "RIGHT"];
-  //var instructions = [];
+  /*@override
+  void update(double dt){
+    final instructions = newInstructions.query<List>();
+    GetBlocks(instructions);
+  }*/
   var newInstructions = [];
+  var oldInstructions = [];
+
+  @override
+  void update(double dt){
+    print("in update");
+    if(newInstructions.length != oldInstructions.length){
+      //print("newIn len = " + newInstructions.length.toString());
+      //print("oldIn len = " + oldInstructions.length.toString());
+      var getBlocks = GetBlocks(newInstructions);
+      var newBlocks = getBlocks.blocks;
+      for(var i in newBlocks){
+        add(i);
+        print("in add for loop in llama");
+      }
+      //oldInstructions = newInstructions;
+      print(("oldInstructions = " + oldInstructions.toString()));
+    }
+  }
+
+  //var instructions = ["FORWARD","FORWARD","PICKUP"];
+  var testInstructions = ["FORWARD", "FORWARD", "PICKUP"];
+  //var instructions = [];
+  //var newInstructions = [];
 
   @override
   Color backgroundColor() => const Color(0x00000000);
 
+  var response = TextRecognition2();
 
   @override
   Future<void> onLoad() async {
@@ -87,7 +119,7 @@ class LlamaGame extends FlameGame with HasTappables {
         //world.overlay.add(blockOne);*/
         //var getBlocksList = await getInstructions();
 
-        await getInstructions().then((value) {
+        getInstructions().then((value) {
           print("in await");
           print("value type: " + value.runtimeType.toString());
           print("value " + value.toString());
@@ -176,9 +208,36 @@ class LlamaGame extends FlameGame with HasTappables {
     // add(camera);
 
   }
-  Future<List> getInstructions() async{
+  Future getInstructions() async{
     print("in getInstructions");
-    var response = await TextRecognition2();
+    //var response = TextRecognition2();
+    response.setup().then((value) {
+      print("response after text recognition: " + response.toString());
+      print(response);
+      var result = response.instructions;
+      print("INSTRUCTIONS: " + result.toString());
+      //instructions = ["FORWARD"];
+      for(var i in result){
+        newInstructions.add(i);
+      }
+      print("llama instructions = " + newInstructions.toString());
+      var getBlocks = GetBlocks(newInstructions);
+      print("getBlocks = " + getBlocks.toString());
+      var getBlocksList = getBlocks.blocks;
+      //var getBlocksList = response.blocks;
+      /*Future.delayed(Duration(milliseconds: 3000), () {
+        print("delayed");
+      });*/
+      /*print("before add loop in llama");
+      for(var i in getBlocksList){
+        add(i);
+        print("in add for loop in llama");
+      }*/
+
+      return (getBlocksList);
+
+
+    } );
 
     /*await TextRecognition2().then(response) {
       print("response after text recognition: " + response.toString());
@@ -187,20 +246,9 @@ class LlamaGame extends FlameGame with HasTappables {
       print("INSTRUCTIONS: " + result.toString());
       };*/
 
-    print("response after text recognition: " + response.toString());
-    print(response);
-    var result = response.instructions;
-    print("INSTRUCTIONS: " + result.toString());
-    //instructions = ["FORWARD"];
-    for(var i in result){
-      newInstructions.add(i);
-    }
-    print("llama instructions = " + newInstructions.toString());
-    var getBlocks = GetBlocks(newInstructions);
-    var getBlocksList = getBlocks.blocks;
-
-    return (getBlocksList);
   }
+
+
 
 
 
