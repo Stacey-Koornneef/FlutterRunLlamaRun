@@ -13,7 +13,6 @@ import 'components/buttons/runBlocksButton.dart';
 import 'components/textRecognitionStuff/textRecognition2.dart';
 import 'components/pieces/loadCharacter.dart';
 import 'dart:async';
-//TODO Restructure directories
 
 bool timeToUpdate = false;
 int level = 1;
@@ -48,6 +47,25 @@ class LlamaGame extends FlameGame with HasTappables {
   var loadCharacter;
   bool loading = false;
   var character;
+
+  var imagesToLoad = <String>[
+    'llama_walk_back_1.png',
+    'llama_walk_back_2.png',
+    'llama_walk_back_3.png',
+    'llama_walk_back_4.png',
+    'mygrasslarge.jpg',
+    'mypavementlarge.jpg',
+    'apple.png',
+    'buttonBackground1.png',
+    'forwardBlock.png',
+    'leftBlock.png',
+    'rightBlock.png',
+    'pickUpBlock.png',
+    'llama_eat_1.png',
+    'llama_eat_2.png',
+    'llama_eat_3.png',
+    'llama_eat_4.png'
+  ];
 
 
 
@@ -101,94 +119,18 @@ class LlamaGame extends FlameGame with HasTappables {
   @override
   Future<void> onLoad() async {
     Flame.device.setLandscape();
-    await Flame.images.loadAll(<String>[//TODO make a list at the top instead
-      'llama_walk_back_1.png',
-      'llama_walk_back_2.png',
-      'llama_walk_back_3.png',
-      'llama_walk_back_4.png',
-      'mygrasslarge.jpg',
-      'mypavementlarge.jpg',
-      'apple.png',
-      'buttonBackground1.png',
-      'forwardBlock.png',
-      'leftBlock.png',
-      'rightBlock.png',
-      'pickUpBlock.png',
-      'llama_eat_1.png',
-      'llama_eat_2.png',
-      'llama_eat_3.png',
-      'llama_eat_4.png'
-    ]);
+    await Flame.images.loadAll(imagesToLoad);
 
-    loadCharacter = LoadCharacter()
-      ..size = (squareSize *1.75)
-      ..position = Vector2(100,100);
-
-    //TODO put buttons into a function
-    getBlocksButton = SpriteTextButton(
-      button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
-      priority: 5,
-      scale: Vector2(0.1,0.1),
-      position: Vector2(50,30),
-      onPressed: () async{
-         loadCharacter = LoadCharacter()
-          ..size = (squareSize *1.75)
-          ..position = Vector2(100,100);
-
-        add(loadCharacter);
-        startLoad = true;
-
-        getBlocksRun = true;
-        print("Get Blocks");
-
-
-
-
-        getInstructions().then((value) {
-          print("in await");
-          print("value type: " + value.runtimeType.toString());
-          print("value " + value.toString());
-          for(var element in value){
-            newInstructions.add(element);
-            print("element" + element.toString());
-          }
-
-        });
-
-
-      },
-      text: "Get Blocks",
-      textXShift: 400,
-      textYShift: 100,
-    );
+    createGetBlocksButton();
     add(getBlocksButton!);
 
+    //TODO move to levels
     character = Character()
       ..size = (squareSize * 1.75)
       ..position = Vector2(squareGap + (4.65+2) * (squareWidth + squareGap),
         (squareHeight*3.7) + 3 * squareGap,);
 
-    runBlocksButton = SpriteTextButton(
-      button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
-      priority: 6,
-      scale: Vector2(0.1,0.1),
-      position: Vector2(495, 425),
-      onPressed: () {
-        print("Run Blocks");
-        if(getBlocksRun == true){//rename bool blocksAvailable
-          var getComponents = RunBlocksButton(character, response.instructions);
-          var newComponents = getComponents.newComponents;
-          for(var element in newComponents){
-            add(element);
-            components.add(element);
-          }
-
-        }
-      },
-      text: "Run, Llama, Run",
-      textXShift: -430,
-      textYShift: -250,
-    );
+    createRunBlocksButton();
 
     add(runBlocksButton!);
     add(character);
@@ -196,11 +138,6 @@ class LlamaGame extends FlameGame with HasTappables {
 
     if(level==1){
       for(var element in levelOneBlocks){
-        add(element);
-        components.add(element);
-      }
-    }else if(level == 2){
-      for(var element in levelTwoBlocks){
         add(element);
         components.add(element);
       }
@@ -220,6 +157,64 @@ class LlamaGame extends FlameGame with HasTappables {
 
     } );
 
+  }
+
+  void createGetBlocksButton(){
+    getBlocksButton = SpriteTextButton(
+      button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
+      priority: 5,
+      scale: Vector2(0.1,0.1),
+      position: Vector2(50,30),
+      onPressed: () async{
+        loadCharacter = LoadCharacter()
+          ..size = (squareSize *1.75)
+          ..position = Vector2(100,100);
+
+        add(loadCharacter);
+        startLoad = true;
+
+        getBlocksRun = true;
+        print("Get Blocks");
+
+        getInstructions().then((value) {
+          print("in await");
+          print("value type: " + value.runtimeType.toString());
+          print("value " + value.toString());
+          for(var element in value){
+            newInstructions.add(element);
+            print("element" + element.toString());
+          }
+
+        });
+
+      },
+      text: "Get Blocks",
+      textXShift: 400,
+      textYShift: 100,
+    );
+  }
+
+  void createRunBlocksButton(){
+    runBlocksButton = SpriteTextButton(
+      button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
+      priority: 6,
+      scale: Vector2(0.1,0.1),
+      position: Vector2(495, 425),
+      onPressed: () {
+        print("Run Blocks");
+        if(getBlocksRun == true){//rename bool blocksAvailable
+          var getComponents = RunBlocksButton(character, response.instructions);
+          var newComponents = getComponents.newComponents;
+          for(var element in newComponents){
+            add(element);
+            components.add(element);
+          }
+        }
+      },
+      text: "Run, Llama, Run",
+      textXShift: -430,
+      textYShift: -250,
+    );
   }
 
 }
