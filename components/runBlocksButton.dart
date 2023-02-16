@@ -4,11 +4,13 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
+import '../llama.dart';
 import 'movementBlocks.dart';
 import 'character.dart';
 import 'package:flame/timer.dart';
 import 'spriteTextButton.dart';
 import 'levelTwo.dart';
+import 'package:collection/collection.dart';
 
 
 class RunBlocksButton extends SpriteComponent{
@@ -44,6 +46,8 @@ class RunBlocksButton extends SpriteComponent{
         pickUp(character);
       };
 
+      isCorrect(instructions);
+
     });
 
 
@@ -55,7 +59,7 @@ class RunBlocksButton extends SpriteComponent{
   //moves the character one block up over 1 second
   moveForward(Character character){
     print("in moveforward");
-    character.add(MoveByEffect(Vector2(0, -700), EffectController(duration: 1)),);
+    character.add(MoveByEffect(Vector2(0, -90), EffectController(duration: 1)),);
 
   }
 
@@ -63,37 +67,54 @@ class RunBlocksButton extends SpriteComponent{
   moveLeft(Character character){
     print("in moveleft");
     //character.add(RotateEffect.by(pi/2, EffectController(duration: 0.5)));
-    character.add(MoveByEffect(Vector2(-600, 0), EffectController(duration: 1)),);
+    character.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)),);
     //character.add(RotateEffect.by(pi/2, EffectController(duration: 0.5)));
   }
 
   moveRight(Character character){
-    character.add(MoveByEffect(Vector2(600, 0), EffectController(duration: 1)),);
+    character.add(MoveByEffect(Vector2(90, 0), EffectController(duration: 1)),);
   }
 
   pickUp(Character character){
     print("PICKUP");
 
-    var continueButton = SpriteTextButton(
-      button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
-      priority: 200,
-      scale: Vector2(0.075,0.075),
-      position: Vector2(25,15),
-      onPressed: () {
-        print("Continuing");
-        var newBoard = [];
-        var levelTwo = LevelTwo();
-        var levelTwoBlocks = levelTwo.blocks;
-        for(var element in levelTwoBlocks){
-          newComponents.add(element);
-        }
-      },
-      text: "Continue",
-      textXShift: 250,
-      textYShift: 50,
-    );
+  }
 
-    newComponents.add(continueButton);
+  isCorrect(List instructions){
+    print("in is correct");
+    if(level == 1){
+      print("in level loop");
+      print("instructions: " + instructions.toString());
+      //print(instructions.runtimeType);
+      var testResult = (instructions == ["FORWARD", "FORWARD", "PICKUP"]);
+      print("instructions are correct: " + testResult.toString());
+      Function equality = const DeepCollectionEquality().equals;
+      print(equality(instructions, ["FORWARD", "FORWARD", "PICKUP"]));
+      if(equality(instructions, ["FORWARD", "FORWARD", "PICKUP"])){
+        print("in instructions loop");
+        var continueButton = SpriteTextButton(
+          button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
+          priority: 200,
+          scale: Vector2(0.1,0.1),
+          position: Vector2(50,400),
+          onPressed: () {
+            //removeAll(components);
+            print("Continuing");
+            //level = 2;
+            /*for(var element in levelTwoBlocks){
+              newComponents.add(element);
+            }*/
+            level = level + 1;
+            reset = true;
+          },
+          text: "Continue",
+          textXShift: 600,
+          textYShift: -200,
+        );
+
+        newComponents.add(continueButton);
+      }
+    }
   }
 
 

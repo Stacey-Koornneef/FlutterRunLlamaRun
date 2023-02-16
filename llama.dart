@@ -6,9 +6,11 @@ import 'package:flame/experimental.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:testing/components/loadCharacter.dart';
 //import 'package:provider/provider.dart';
 
 import 'components/character.dart';
+import 'components/loadCharacter.dart';
 //import 'components/board.dart';
 import 'components/grassBlocks.dart';
 import 'components/pavementBlocks.dart';
@@ -24,6 +26,17 @@ import 'package:async/async.dart';
 import 'dart:async';
 import 'package:flame/timer.dart';
 
+bool timeToUpdate = false;
+int level = 1;
+var levelOne = LevelOne();
+var levelOneBlocks = levelOne.blocks;
+
+var levelTwo = LevelTwo();
+var levelTwoBlocks = levelTwo.blocks;
+bool reset = false;
+
+List<Component> components = [];
+
 class LlamaGame extends FlameGame with HasTappables {
   //setting up board
   static const double squareWidth = 80;
@@ -31,48 +44,94 @@ class LlamaGame extends FlameGame with HasTappables {
   static const double squareGap = 3;
   static const double squareRadius = 3.0;
   static final Vector2 squareSize = Vector2(squareWidth, squareHeight);
-  int level = 1;
+  //int level = 1;
   SpriteTextButton? getBlocksButton;
   SpriteTextButton? runBlocksButton;
 
-  List<Component> components = [];
+  //List<Component> components = [];
   //final world = World();
   //for checking when the buttons have run
   bool getBlocksRun = false;
   bool runBlocksRunning = false;
 
-  /*@override
-  void update(double dt){
-    final instructions = newInstructions.query<List>();
-    GetBlocks(instructions);
-  }*/
   var newInstructions = [];
-  var oldInstructions = [];
+  var oldInstructions = [];//?
+
+  bool startLoad = false;
+
+  var loadCharacter;
+  bool loading = false;
+
+
 
   @override
   void update(double dt){
-    print("in update");
-    if(newInstructions.length != oldInstructions.length){
+    //print("in update");
+    super.update(dt);
+
+    //print("timeToUpdate" + timeToUpdate.toString());
+    //print("response " + response.instructions.length.toString());
+    if((timeToUpdate == true) && (response.instructions.length != 0)){//change to 0?
+
+      print("in update if");
+      //print("len " + response.instructions.length.toString());
       //print("newIn len = " + newInstructions.length.toString());
       //print("oldIn len = " + oldInstructions.length.toString());
-      var getBlocks = GetBlocks(newInstructions);
+      var getBlocks = GetBlocks(response.instructions);
       var newBlocks = getBlocks.blocks;
+      //components.add(newBlocks);
+      //print("newBlocks = " + newBlocks.toString());
       for(var i in newBlocks){
         add(i);
+        components.add(i);
         print("in add for loop in llama");
       }
+      //remove(loadCharacter);
+      timeToUpdate = false;
+      startLoad = false;
+      print("startload "+ startLoad.toString());
+
       //oldInstructions = newInstructions;
-      print(("oldInstructions = " + oldInstructions.toString()));
+      //print(("oldInstructions = " + oldInstructions.toString()));
     }
+
+    /*if(startLoad == false){
+      //print("in start if");
+      //print(loadCharacter);
+      //remove(loadCharacter);
+    }*/
+
+
+
+    if(startLoad == true){
+      print("startload = true");
+      //add(loadCharacter);
+      loading = true;
+      if(loading == true){
+      }
+    }else if(startLoad == false){
+      if(loading == true){
+        remove(loadCharacter);
+        loading = false;
+      }else{
+      }
+
+    }
+
+    if(reset == true){
+      print("reset");
+      print(components);
+      removeAll(components);
+      reset = false;
+    }
+
+
   }
 
-  //var instructions = ["FORWARD","FORWARD","PICKUP"];
-  var testInstructions = ["FORWARD", "FORWARD", "PICKUP"];
-  //var instructions = [];
-  //var newInstructions = [];
+
 
   @override
-  Color backgroundColor() => const Color(0x00000000);
+  Color backgroundColor() => const Color(0xFFFFFFFF);
 
   var response = TextRecognition2();
 
@@ -80,6 +139,7 @@ class LlamaGame extends FlameGame with HasTappables {
   Future<void> onLoad() async {
     //await Flame.device.fullScreen();
     //await Flame.device.setOrientation(DeviceOrientation.landscapeRight);
+    Flame.device.setLandscape();
     await Flame.images.loadAll(<String>[
       'llama_walk_back_1.png',
       'llama_walk_back_2.png',
@@ -92,8 +152,16 @@ class LlamaGame extends FlameGame with HasTappables {
       'forwardBlock.png',
       'leftBlock.png',
       'rightBlock.png',
-      'pickUpBlock.png'
+      'pickUpBlock.png',
+      'llama_eat_1.png',
+      'llama_eat_2.png',
+      'llama_eat_3.png',
+      'llama_eat_4.png'
     ]);
+
+    loadCharacter = LoadCharacter()
+      ..size = (squareSize *1.75)
+      ..position = Vector2(100,100);
 
     getBlocksButton = SpriteTextButton(
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
@@ -101,23 +169,18 @@ class LlamaGame extends FlameGame with HasTappables {
       scale: Vector2(0.1,0.1),
       position: Vector2(50,30),
       onPressed: () async{
+         loadCharacter = LoadCharacter()
+          ..size = (squareSize *1.75)
+          ..position = Vector2(100,100);
+
+        add(loadCharacter);
+        startLoad = true;
+
         getBlocksRun = true;
         print("Get Blocks");
 
-        //var getBlocks = GetBlocks(instructions);
-        /*var response = TextRecognition2();
-        print("response after text recognition: " + response.toString());
-        var result = response.instructions;
-        print("INSTRUCTIONS: " + result.toString());
-        //instructions = ["FORWARD"];
-        for( var i in result){
-          newInstructions.add(i);
-        }
-        print("llama instructions = " + newInstructions.toString());
-        var getBlocks = GetBlocks(newInstructions);
-        var getBlocksList = getBlocks.blocks;
-        //world.overlay.add(blockOne);*/
-        //var getBlocksList = await getInstructions();
+
+
 
         getInstructions().then((value) {
           print("in await");
@@ -130,6 +193,9 @@ class LlamaGame extends FlameGame with HasTappables {
           // maybe setState()
 
         });
+
+        //remove(loadCharacter);
+
       },
       text: "Get Blocks",
       textXShift: 400,
@@ -145,6 +211,10 @@ class LlamaGame extends FlameGame with HasTappables {
     //Vector2(squareGap + (6+2) * (squareWidth + squareGap),
       //(squareHeight*4) + 3 * squareGap,);
 
+    /*final loadCharacter = LoadCharacter()
+      ..size = (squareSize *1.75)
+      ..position = Vector2(100,100);*/
+
 
     //add(character);
 
@@ -155,8 +225,8 @@ class LlamaGame extends FlameGame with HasTappables {
       position: Vector2(495, 425),
       onPressed: () {
         print("Run Blocks");
-        if(getBlocksRun == true){
-          var getComponents = RunBlocksButton(character, newInstructions);
+        if(getBlocksRun == true){//rename bool blocksAvailable
+          var getComponents = RunBlocksButton(character, response.instructions);
           var newComponents = getComponents.newComponents;
           for(var element in newComponents){
             add(element);
@@ -173,17 +243,18 @@ class LlamaGame extends FlameGame with HasTappables {
 
 
 
-    var levelOne = LevelOne();
+    /*var levelOne = LevelOne();
     var levelOneBlocks = levelOne.blocks;
 
-    //var levelTwo = LevelTwo();
-    //var levelTwoBlocks = levelTwo.blocks;
+    var levelTwo = LevelTwo();
+    var levelTwoBlocks = levelTwo.blocks;*/
 
 
     // final world = World()
     //..add(blocks)
     // ..add(character)
     add(character);
+    //add(loadCharacter);
     addAll(components);
     //add(runBlocksButton!);
     // //..add(apple)
@@ -192,9 +263,23 @@ class LlamaGame extends FlameGame with HasTappables {
     // ..add(runBlocksButton!);
     //..addAll(levelOneBlocks);
     //print(levelOneBlocks);
-    for(var element in levelOneBlocks){
+    /*for(var element in levelOneBlocks){
       // world.add(element);
       add(element);
+    }*/
+    /*for(var element in levelTwoBlocks) {
+      // world.add(element);
+      add(element);
+    }*/
+
+    if(level==1){
+      for(var element in levelOneBlocks){
+        add(element);
+      }
+    }else if(level == 2){
+      for(var element in levelTwoBlocks){
+        add(element);
+      }
     }
 
 
@@ -213,15 +298,15 @@ class LlamaGame extends FlameGame with HasTappables {
     //var response = TextRecognition2();
     response.setup().then((value) {
       print("response after text recognition: " + response.toString());
-      print(response);
+      /*print(response);
       var result = response.instructions;
       print("INSTRUCTIONS: " + result.toString());
       //instructions = ["FORWARD"];
       for(var i in result){
         newInstructions.add(i);
       }
-      print("llama instructions = " + newInstructions.toString());
-      var getBlocks = GetBlocks(newInstructions);
+      print("llama instructions = " + newInstructions.toString());*/
+      var getBlocks = GetBlocks(response.instructions);
       print("getBlocks = " + getBlocks.toString());
       var getBlocksList = getBlocks.blocks;
       //var getBlocksList = response.blocks;

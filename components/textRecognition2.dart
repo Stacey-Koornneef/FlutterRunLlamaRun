@@ -7,6 +7,7 @@ import 'package:flame/flame.dart';
 import 'package:learning_text_recognition/learning_text_recognition.dart';
 import 'package:learning_text_recognition/learning_text_recognition.dart';
 import 'package:testing/components/getBlocks.dart';
+import 'package:testing/llama.dart';
 import 'movementBlocks.dart';
 import 'character.dart';
 import 'package:flame/timer.dart';
@@ -37,13 +38,15 @@ var blocks = [];
   }
 
   Future runTextRecognition() async{
+    print("in run text recognition");
     XFile? photo = await GetImage();
     print("type of get image");
     print(photo.runtimeType);
   }
 
   Future<XFile?> GetImage() async {
-    print("getImage");
+    print(" in getImage");
+    instructions = [];
     final ImagePicker _picker = ImagePicker();
     print('debug1');
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
@@ -88,7 +91,7 @@ var blocks = [];
 
   List<dynamic> get instruction => instructions;
 
-  set instruction(data){
+  /*set instruction(data){
     instructions = data;
     notifyListeners();
   }
@@ -96,57 +99,9 @@ var blocks = [];
   addInstructions(newInstruction){
     instructions.add(newInstruction);
     notifyListeners();
-  }
-
-
-  /*Future<void> _startRecognition(InputImage image) async {
-    TextRecognition _textRecognition = TextRecognition();
-    var result = await _textRecognition.process(image);
-    print("In start recognition");
-    print(result);
-
-    TextRecognitionState state = Provider.of(context, listen: false);
-
-    if (state.isNotProcessing) {
-      state.startProcessing();
-      state.image = image;
-      state.data = await _textRecognition?.process(image);
-      state.stopProcessing();
-    }
   }*/
 
-  /*@override
-  Widget build(BuildContext context) {
-    return InputCameraView(
-      mode: InputCameraMode.gallery,
-      // resolutionPreset: ResolutionPreset.high,
-      title: 'Text Recognition',
-      onImage: _startRecognition,
-      overlay: Consumer<TextRecognitionState>(
-        builder: (_, state, __) {
-          if (state.isNotEmpty) {
-            return Center(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                ),
-                child: Text(
-                  state.text,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            );
-          }
 
-          return Container();
-        },
-      ),
-    );
-  }*/
 
   Future CleanData(List data) async{
     print("In CLEAN DATA");
@@ -161,6 +116,9 @@ var blocks = [];
       print("i = " + i.toString());
       print("i type = " + i.runtimeType.toString());
       if(i == "FORWARD" || i == "LEFT" || i == "RIGHT" || i == "PICKUP" || i == "PICK UP"){
+        if(i == "PICK UP"){
+          i = "PICKUP";
+        }
         instructions.add(i);
         //var block = GetBlocks(i, position);
         //blocks.add(block);
@@ -169,6 +127,7 @@ var blocks = [];
       }
     }
    // return(instructions);
+    timeToUpdate = true;
     print(instructions);
   }
 }
