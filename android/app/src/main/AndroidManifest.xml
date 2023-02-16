@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.testing">
+    package="com.example.run_llama_run_local">
    <application
-        android:label="testing"
+        android:label="run_llama_run_local"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

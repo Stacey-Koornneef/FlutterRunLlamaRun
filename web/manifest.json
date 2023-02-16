@@ -1,6 +1,6 @@
 {
-    "name": "testing",
-    "short_name": "testing",
+    "name": "run_llama_run_local",
+    "short_name": "run_llama_run_local",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

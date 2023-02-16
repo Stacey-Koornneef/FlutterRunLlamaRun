@@ -10,6 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
   flame: ^1.0.0
+  provider: ^4.1.1
+  learning_text_recognition: ^0.0.4
+  learning_input_image: ^0.0.6+2
+  image_picker: 0.8.6
+  simple_ocr_plugin: ^0.1.1
+  async: ^2.10.0
+
 
 flutter:
   assets:
