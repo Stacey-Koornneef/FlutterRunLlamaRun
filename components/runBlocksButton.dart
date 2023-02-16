@@ -1,15 +1,9 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
 import '../llama.dart';
-import 'movementBlocks.dart';
 import 'character.dart';
-import 'package:flame/timer.dart';
 import 'spriteTextButton.dart';
-import 'levelTwo.dart';
 import 'package:collection/collection.dart';
 
 
@@ -20,21 +14,11 @@ class RunBlocksButton extends SpriteComponent{
   RunBlocksButton(Character character, List instructions){
     print("Run Blocks Button");
     print(instructions);
-    //character.add(MoveByEffect(Vector2(0, -1200), EffectController(duration: 1)),);
-
     //go through the list of instructions and send them to the correct function
     instructions.forEach((i){
       print(i);
-
       if(i == "FORWARD"){
-        //Timer(7.0, onTick: () {
         moveForward(character);
-        //});
-
-        //sleep(const Duration(seconds: 2));
-        //Duration timeDuration = Duration(seconds: 3);
-        // sleep(timeDuration)
-        //await Future.delayed(timeDuration);
       }
       else if(i == "LEFT"){
         moveLeft(character);
@@ -50,10 +34,6 @@ class RunBlocksButton extends SpriteComponent{
 
     });
 
-
-
-
-
   }
 
   //moves the character one block up over 1 second
@@ -66,9 +46,7 @@ class RunBlocksButton extends SpriteComponent{
   //moves the character to the block on the left over 1 second
   moveLeft(Character character){
     print("in moveleft");
-    //character.add(RotateEffect.by(pi/2, EffectController(duration: 0.5)));
     character.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)),);
-    //character.add(RotateEffect.by(pi/2, EffectController(duration: 0.5)));
   }
 
   moveRight(Character character){
@@ -81,11 +59,8 @@ class RunBlocksButton extends SpriteComponent{
   }
 
   isCorrect(List instructions){
-    print("in is correct");
     if(level == 1){
-      print("in level loop");
       print("instructions: " + instructions.toString());
-      //print(instructions.runtimeType);
       var testResult = (instructions == ["FORWARD", "FORWARD", "PICKUP"]);
       print("instructions are correct: " + testResult.toString());
       Function equality = const DeepCollectionEquality().equals;
@@ -98,12 +73,6 @@ class RunBlocksButton extends SpriteComponent{
           scale: Vector2(0.1,0.1),
           position: Vector2(50,400),
           onPressed: () {
-            //removeAll(components);
-            print("Continuing");
-            //level = 2;
-            /*for(var element in levelTwoBlocks){
-              newComponents.add(element);
-            }*/
             level = level + 1;
             reset = true;
           },

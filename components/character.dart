@@ -1,16 +1,5 @@
 import 'package:flame/components.dart';
-
-//import 'package:flame/collisions.dart';
-//import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
-
-
-
-/*class Character extends PositionComponent {
-  @override
-  bool get debugMode => true;
-}*/
-
 
 class Character extends SpriteAnimationComponent {
   List<Sprite> runSprites = [
