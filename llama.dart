@@ -2,15 +2,16 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:testing/components/loadCharacter.dart';
+//import 'package:testing/components/loadCharacter.dart';
 
-import 'components/character.dart';
-import 'components/levelOne.dart';
-import 'components/levelTwo.dart';
-import 'components/spriteTextButton.dart';
-import 'components/getBlocks.dart';
-import 'components/runBlocksButton.dart';
-import 'components/textRecognition2.dart';
+import 'components/pieces/character.dart';
+import 'components/levels/levelOne.dart';
+import 'components/levels/levelTwo.dart';
+import 'components/buttons/spriteTextButton.dart';
+import 'components/buttons/getBlocks.dart';
+import 'components/buttons/runBlocksButton.dart';
+import 'components/textRecognitionStuff/textRecognition2.dart';
+import 'components/pieces/loadCharacter.dart';
 import 'dart:async';
 //TODO Restructure directories
 
