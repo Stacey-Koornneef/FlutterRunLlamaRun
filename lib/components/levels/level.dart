@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
+import 'package:testing/llama.dart';
 import '../pieces/grassBlocks.dart';
 import 'package:flame/experimental.dart';
 import '../pieces/pavementBlocks.dart';
@@ -55,11 +56,27 @@ class Level {
   LevelOne(){
     var b1 = PavementBlocks()
         ..size = squareSize
-        .. position = Vector2(((2+4)+2) *(squareWidth + squareGap) + squareGap,
-          (squareHeight * (3)) + ((3+0.5) * squareGap));
+        .. position = Vector2(((2+2)+2) *(squareWidth + squareGap) + squareGap,
+          (squareHeight * (4)) + ((4+0.5) * squareGap));
 
     blocks.removeAt(22);
     blocks.insert(22, b1);
+
+    var b2 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((2+2)+2) *(squareWidth + squareGap) + squareGap,
+          (squareHeight * (3)) + ((3+0.5) * squareGap));
+
+    blocks.removeAt(17);
+    blocks.insert(17, b2);
+
+    var b3 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((2+2)+2) *(squareWidth + squareGap) + squareGap,
+          (squareHeight * (2)) + ((2+0.5) * squareGap));
+
+    blocks.removeAt(12);
+    blocks.insert(12, b3);
 
     print(blocks);
 
@@ -75,6 +92,8 @@ class Level {
         (squareHeight*2.3) + 2.5 * squareGap,);
 
     blocks.add(apple);
+
+    solution = ["FORWARD", "FORWARD", "PICKUP"];
 
   }
 

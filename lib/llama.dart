@@ -16,6 +16,7 @@ import 'components/levels/level.dart';
 import 'dart:async';
 
 bool timeToUpdate = false;
+//bool timeToUpdateLevel = false;
 int level = 1;
 /*var levelOne = LevelOne();
 var levelOneBlocks = levelOne.blocks;
@@ -89,6 +90,15 @@ class LlamaGame extends FlameGame with HasTappables {
       startLoad = false;
       print("startload "+ startLoad.toString());
     }
+
+    /*if(timeToUpdateLevel == true){
+      levelBlocks = levelOverall.blocks;
+      for(var element in levelBlocks){
+        add(element);
+        components.add(element);
+      }
+      timeToUpdateLevel = false;
+    }*/
 
     if(startLoad == true){
       print("startload = true");
