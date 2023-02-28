@@ -11,7 +11,7 @@ class RunBlocksButton extends SpriteComponent{
   var blocks = [];
   var newComponents = [];
 
-  /*RunBlocksButton(Character character, List instructions){
+  RunBlocksButton(Character character, List instructions){
     print("Run Blocks Button");
     print(instructions);
     //go through the list of instructions and send them to the correct function
@@ -54,53 +54,6 @@ class RunBlocksButton extends SpriteComponent{
   }
 
   pickUp(Character character){
-    print("PICKUP");
-
-  }*/
-
-  RunBlocksButton(List instructions){
-    print("Run Blocks Button");
-    print(instructions);
-    //go through the list of instructions and send them to the correct function
-    instructions.forEach((i){
-      print(i);
-      if(i == "FORWARD"){
-        moveForward();
-      }
-      else if(i == "LEFT"){
-        moveLeft();
-      }
-      else if(i == "RIGHT"){
-        moveRight();
-      }
-      else if(i == "PICKUP"){
-        pickUp();
-      };
-
-      isCorrect(instructions, levelSolution);
-
-    });
-
-  }
-
-  //moves the character one block up over 1 second
-  moveForward(){
-    print("in moveforward");
-    character.add(MoveByEffect(Vector2(0, -90), EffectController(duration: 1)),);
-
-  }
-
-  //moves the character to the block on the left over 1 second
-  moveLeft(){
-    print("in moveleft");
-    character.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)),);
-  }
-
-  moveRight(){
-    character.add(MoveByEffect(Vector2(90, 0), EffectController(duration: 1)),);
-  }
-
-  pickUp(){
     print("PICKUP");
 
   }

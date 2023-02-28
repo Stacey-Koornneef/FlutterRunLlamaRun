@@ -22,6 +22,7 @@ class Level {
   //Iterable? blocks;
   var blocks = [];
   var solution = [];
+  var character;
 
   Level(int level){
     print("in level");
@@ -80,11 +81,11 @@ class Level {
 
     print(blocks);
 
-    final character = Character()
+    character = Character()
       ..size = (squareSize * 1.75)
       ..position = Vector2(squareGap + ((4.65-1)+2) * (squareWidth + squareGap),
         (squareHeight*3.7) + 3 * squareGap,);
-    blocks.add(character);
+    //blocks.add(character);
 
     final apple = Apple()
       ..size = Vector2(squareHeight/2, squareHeight/2)
@@ -144,7 +145,7 @@ class Level {
       ..size = (squareSize * 1.75)
       ..position = Vector2(squareGap + ((4.65-1)+2) * (squareWidth + squareGap),
         (squareHeight*3.7) + 3 * squareGap,);
-    blocks.add(character);
+    //blocks.add(character);
 
     final apple = Apple()
       ..size = Vector2(squareHeight/2, squareHeight/2)

@@ -25,14 +25,12 @@ var levelTwo = LevelTwo();
 var levelTwoBlocks = levelTwo.blocks;*/
 bool reset = false;
 
-Character character = Character()
-  ..size = (Vector2(0,0) * 1.75)
-  ..position = Vector2(0 + (0.65+2) * (0 + 0),
-    (0*3.7) + 0 * 0,);
+
 
 var levelOverall = Level(level);
 var levelBlocks = levelOverall.blocks;
 var levelSolution = levelOverall.solution;
+var character = levelOverall.character;
 
 List<Component> components = [];
 
@@ -97,14 +95,6 @@ class LlamaGame extends FlameGame with HasTappables {
       print("startload "+ startLoad.toString());
     }
 
-    /*if(timeToUpdateLevel == true){
-      levelBlocks = levelOverall.blocks;
-      for(var element in levelBlocks){
-        add(element);
-        components.add(element);
-      }
-      timeToUpdateLevel = false;
-    }*/
 
     if(startLoad == true){
       print("startload = true");
@@ -165,6 +155,7 @@ class LlamaGame extends FlameGame with HasTappables {
       components.add(element);
     }
 
+    components.add(character);
     add(runBlocksButton!);
     addAll(components);
 
@@ -238,7 +229,7 @@ class LlamaGame extends FlameGame with HasTappables {
       onPressed: () {
         print("Run Blocks");
         if(getBlocksRun == true){//rename bool blocksAvailable
-          var getComponents = RunBlocksButton(response.instructions);
+          var getComponents = RunBlocksButton(character, response.instructions);
           var newComponents = getComponents.newComponents;
           for(var element in newComponents){
             add(element);
