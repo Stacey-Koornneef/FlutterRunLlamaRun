@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 //import 'package:testing/components/loadCharacter.dart';
 
 import 'components/pieces/character.dart';
-import 'components/levels/levelOne.dart';
-import 'components/levels/levelTwo.dart';
+//import 'components/levels/levelOne.dart';
+//import 'components/levels/levelTwo.dart';
 import 'components/buttons/spriteTextButton.dart';
 import 'components/buttons/getBlocks.dart';
 import 'components/buttons/runBlocksButton.dart';
@@ -25,8 +25,14 @@ var levelTwo = LevelTwo();
 var levelTwoBlocks = levelTwo.blocks;*/
 bool reset = false;
 
+Character character = Character()
+  ..size = (Vector2(0,0) * 1.75)
+  ..position = Vector2(0 + (0.65+2) * (0 + 0),
+    (0*3.7) + 0 * 0,);
+
 var levelOverall = Level(level);
 var levelBlocks = levelOverall.blocks;
+var levelSolution = levelOverall.solution;
 
 List<Component> components = [];
 
@@ -51,7 +57,7 @@ class LlamaGame extends FlameGame with HasTappables {
 
   var loadCharacter;
   bool loading = false;
-  var character;
+  //var character;
 
   var imagesToLoad = <String>[
     'llama_walk_back_1.png',
@@ -147,10 +153,10 @@ class LlamaGame extends FlameGame with HasTappables {
     //var levelInst = Level(level);
 
     //creates an initial instance of character, but position is changed in level
-    character = Character()
+    /*character = Character()
       ..size = (squareSize * 1.75)
-      ..position = Vector2(squareGap + (4.65+2) * (squareWidth + squareGap),
-        (squareHeight*3.7) + 3 * squareGap,);
+      ..position = Vector2(squareGap + (0.65+2) * (squareWidth + squareGap),
+        (squareHeight*3.7) + 0 * squareGap,);*/
 
     createRunBlocksButton();
 
@@ -232,7 +238,7 @@ class LlamaGame extends FlameGame with HasTappables {
       onPressed: () {
         print("Run Blocks");
         if(getBlocksRun == true){//rename bool blocksAvailable
-          var getComponents = RunBlocksButton(character, response.instructions);
+          var getComponents = RunBlocksButton(response.instructions);
           var newComponents = getComponents.newComponents;
           for(var element in newComponents){
             add(element);
