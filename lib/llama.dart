@@ -13,17 +13,23 @@ import 'components/buttons/runBlocksButton.dart';
 import 'components/textRecognitionStuff/textRecognition2.dart';
 import 'components/pieces/loadCharacter.dart';
 import 'components/levels/level.dart';
+import 'components/buttons/checkSolution.dart';
+import 'components/buttons/continueButton.dart';
+import 'components/buttons/tryAgainButton.dart';
 import 'dart:async';
 
 bool timeToUpdate = false;
 //bool timeToUpdateLevel = false;
 int level = 1;
-/*var levelOne = LevelOne();
-var levelOneBlocks = levelOne.blocks;
-
-var levelTwo = LevelTwo();
-var levelTwoBlocks = levelTwo.blocks;*/
 bool reset = false;
+
+bool addContinueButton = false;
+bool addTryAgainButton = false;
+
+var getContinueButton = ContinueButton();
+var continueButton = getContinueButton.continueButton;
+var getTryAgainButton = TryAgainButton();
+var tryAgainButton = getTryAgainButton.tryAgainButton;
 
 
 
@@ -112,14 +118,34 @@ class LlamaGame extends FlameGame with HasTappables {
       for(var i in components){
         remove(i);
       }
-      remove(character);
+      //remove(character);
+
+
+      levelOverall = Level(level);
+      levelBlocks = levelOverall.blocks;
+      levelSolution = levelOverall.solution;
+      character = levelOverall.character;
 
       for(var element in levelBlocks){
         add(element);
         components.add(element);
       }
+      add(character);
+
 
       reset = false;
+    }
+
+    if(addContinueButton == true){
+      add(continueButton);
+      components.add(continueButton);
+      addContinueButton = false;
+    }
+
+    if(addTryAgainButton == true){
+      add(tryAgainButton);
+      components.add(tryAgainButton);
+      addTryAgainButton = false;
     }
 
 
@@ -140,13 +166,6 @@ class LlamaGame extends FlameGame with HasTappables {
     createGetBlocksButton();
     add(getBlocksButton!);
 
-    //var levelInst = Level(level);
-
-    //creates an initial instance of character, but position is changed in level
-    /*character = Character()
-      ..size = (squareSize * 1.75)
-      ..position = Vector2(squareGap + (0.65+2) * (squareWidth + squareGap),
-        (squareHeight*3.7) + 0 * squareGap,);*/
 
     createRunBlocksButton();
 
@@ -159,12 +178,6 @@ class LlamaGame extends FlameGame with HasTappables {
     add(runBlocksButton!);
     addAll(components);
 
-    /*if(level==1){
-      for(var element in levelOneBlocks){
-        add(element);
-        components.add(element);
-      }
-    }*/
 
 
 

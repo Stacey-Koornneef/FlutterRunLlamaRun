@@ -5,6 +5,7 @@ import '../../llama.dart';
 import '../pieces/character.dart';
 import 'spriteTextButton.dart';
 import 'package:collection/collection.dart';
+import 'checkSolution.dart';
 
 
 class RunBlocksButton extends SpriteComponent{
@@ -30,7 +31,7 @@ class RunBlocksButton extends SpriteComponent{
         pickUp(character);
       };
 
-      isCorrect(instructions, levelSolution);
+      CheckSolution(instructions, levelSolution);
 
     });
 
@@ -58,7 +59,7 @@ class RunBlocksButton extends SpriteComponent{
 
   }
 
-  isCorrect(List instructions, List solution){
+  /*isCorrect(List instructions, List solution){
     print("instructions: " + instructions.toString());
     print("solution: " + solution.toString());
     Function equality = const DeepCollectionEquality().equals;
@@ -87,7 +88,7 @@ class RunBlocksButton extends SpriteComponent{
 
         newComponents.add(continueButton);
       }*/
-    }
+    }*/
   }
 
 
