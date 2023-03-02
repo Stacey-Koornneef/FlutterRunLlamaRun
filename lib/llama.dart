@@ -35,6 +35,7 @@ var levelOverall = Level(level);
 var levelBlocks = levelOverall.blocks;
 var levelSolution = levelOverall.solution;
 var character = levelOverall.character;
+var apple = levelOverall.apple;
 
 //a list of all of the visible components in the app
 List<Component> components = [];
@@ -136,6 +137,7 @@ class LlamaGame extends FlameGame with HasTappables {
       levelBlocks = levelOverall.blocks;
       levelSolution = levelOverall.solution;
       character = levelOverall.character;
+      apple = levelOverall.apple;
 
       //add all of the new level information
       for(var element in levelBlocks){
@@ -144,6 +146,8 @@ class LlamaGame extends FlameGame with HasTappables {
       }
       add(character);
       components.add(character);
+      add(apple);
+      components.add(apple);
 
       reset = false;
     }
@@ -196,6 +200,7 @@ class LlamaGame extends FlameGame with HasTappables {
     }
 
     components.add(character);
+    components.add(apple);
     add(runBlocksButton!);
     addAll(components);
 

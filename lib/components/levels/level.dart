@@ -20,10 +20,11 @@ class Level {
   //final grassBlocks = <GrassBlocks>[];
   //final pavementBlocks = <PavementBlocks>[];
 
-  //allows the blocks, solution, and character to be accessed by llama.dart
+  //allows the blocks, solution, apple, and character to be accessed by llama.dart
   var blocks = [];
   var solution = [];
   var character;
+  var apple;
 
   /*
   creates the basic board of grass blocks, then adjusts in the different levels
@@ -101,12 +102,12 @@ class Level {
         (squareHeight*3.7) + 3 * squareGap,);
     //blocks.add(character);
 
-    final apple = Apple()
+    apple = Apple()
       ..size = Vector2(squareHeight/2, squareHeight/2)
       ..position = Vector2(squareGap + ((6.25-1)+1) * (squareWidth + squareGap),
         (squareHeight*2.3) + 2.5 * squareGap,);
 
-    blocks.add(apple);
+    //blocks.add(apple);
 
     solution = ["FORWARD", "FORWARD", "PICKUP"];
 
@@ -165,12 +166,12 @@ class Level {
         (squareHeight*3.7) + 3 * squareGap,);
     //blocks.add(character);
 
-    final apple = Apple()
+    apple = Apple()
       ..size = Vector2(squareHeight/2, squareHeight/2)
       ..position = Vector2(squareGap + ((4.25-1)+1) * (squareWidth + squareGap),
         (squareHeight*2.3) + 2.5 * squareGap,);
 
-    blocks.add(apple);
+    //blocks.add(apple);
 
     solution = ["FORWARD", "FORWARD","LEFT", "LEFT", "PICKUP"];
 
