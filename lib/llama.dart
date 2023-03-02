@@ -2,44 +2,48 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-//import 'package:testing/components/loadCharacter.dart';
 
-import 'components/pieces/character.dart';
-//import 'components/levels/levelOne.dart';
-//import 'components/levels/levelTwo.dart';
 import 'components/buttons/spriteTextButton.dart';
 import 'components/buttons/getBlocks.dart';
 import 'components/buttons/runBlocksButton.dart';
 import 'components/textRecognitionStuff/textRecognition2.dart';
 import 'components/pieces/loadCharacter.dart';
 import 'components/levels/level.dart';
-import 'components/buttons/checkSolution.dart';
 import 'components/buttons/continueButton.dart';
 import 'components/buttons/tryAgainButton.dart';
 import 'dart:async';
 
+//determines if the movement blocks need to be updated on the main screen
 bool timeToUpdate = false;
-//bool timeToUpdateLevel = false;
-int level = 1;
+//determines if the whole app needs to be reset (this counts for level changes)
 bool reset = false;
-
+//determines if the continue button needs to be added to the screen
 bool addContinueButton = false;
+//determines if the try again button needs to be added
 bool addTryAgainButton = false;
 
+//gets information about the continue button
 var getContinueButton = ContinueButton();
 var continueButton = getContinueButton.continueButton;
+//gets information about the try again button
 var getTryAgainButton = TryAgainButton();
 var tryAgainButton = getTryAgainButton.tryAgainButton;
 
 
-
+//gets information about the level
 var levelOverall = Level(level);
 var levelBlocks = levelOverall.blocks;
 var levelSolution = levelOverall.solution;
 var character = levelOverall.character;
 
+//a list of all of the visible components in the app
 List<Component> components = [];
+//current level
+int level = 1;
 
+/*
+LlamaGame class is all the visible items and update information for the whol app
+ */
 class LlamaGame extends FlameGame with HasTappables {
   //setting up board
   static const double squareWidth = 80;
@@ -51,18 +55,18 @@ class LlamaGame extends FlameGame with HasTappables {
   SpriteTextButton? runBlocksButton;
 
   //for checking when the buttons have run
-  bool getBlocksRun = false;
+  bool blocksAvailable = false;
   bool runBlocksRunning = false;
 
+  //the new instructions from getInstructions (text recognition stuff
   var newInstructions = [];
-  var oldInstructions = [];//?
 
+  //all variables associated with the loading character
   bool startLoad = false;
-
   var loadCharacter;
   bool loading = false;
-  //var character;
 
+  //all of the images that nee to be loaded
   var imagesToLoad = <String>[
     'llama_walk_back_1.png',
     'llama_walk_back_2.png',
@@ -84,6 +88,11 @@ class LlamaGame extends FlameGame with HasTappables {
 
 
 
+  /*
+  The update function is for anything that needs to be updated at any point in
+  the program, usually used for adding new components.  Automatically runs on a
+  regular basis (>1 times per second)
+   */
   @override
   void update(double dt){
     super.update(dt);
@@ -102,6 +111,7 @@ class LlamaGame extends FlameGame with HasTappables {
     }
 
 
+    //creates and removes the llama loading character
     if(startLoad == true){
       print("startload = true");
       loading = true;
@@ -112,6 +122,7 @@ class LlamaGame extends FlameGame with HasTappables {
       }
     }
 
+    //everything related to resetting the screen
     if(reset == true){
       print("reset");
       print(components);
@@ -120,28 +131,31 @@ class LlamaGame extends FlameGame with HasTappables {
       }
       //remove(character);
 
-
+      //gets new level information, in case the level changed
       levelOverall = Level(level);
       levelBlocks = levelOverall.blocks;
       levelSolution = levelOverall.solution;
       character = levelOverall.character;
 
+      //add all of the new level information
       for(var element in levelBlocks){
         add(element);
         components.add(element);
       }
       add(character);
-
+      components.add(character);
 
       reset = false;
     }
 
+    //adds the continue button to the screen
     if(addContinueButton == true){
       add(continueButton);
       components.add(continueButton);
       addContinueButton = false;
     }
 
+    //adds the try again button to the screen
     if(addTryAgainButton == true){
       add(tryAgainButton);
       components.add(tryAgainButton);
@@ -152,23 +166,30 @@ class LlamaGame extends FlameGame with HasTappables {
   }
 
 
-
+  //changes the background colour to white
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
 
+  //creates an instance of TextRecognition2
   var response = TextRecognition2();
 
+  /*
+  The onLoad function handles everything that needs to be done at the initial
+  start up, such as loading all necessary buttons and loading the first level
+   */
   @override
   Future<void> onLoad() async {
     Flame.device.setLandscape();
     await Flame.images.loadAll(imagesToLoad);
 
+    //makes the get blocks button
     createGetBlocksButton();
     add(getBlocksButton!);
 
-
+    //makes the run blocks button
     createRunBlocksButton();
 
+    //adds all of the blocks in level one
     for(var element in levelBlocks){
       //add(element);
       components.add(element);
@@ -178,12 +199,12 @@ class LlamaGame extends FlameGame with HasTappables {
     add(runBlocksButton!);
     addAll(components);
 
-
-
-
   }
 
 
+  /*
+  getInstructions is used to get the text recognition instructions
+   */
   Future getInstructions() async{
     print("in getInstructions");
     response.setup().then((value) {
@@ -198,6 +219,9 @@ class LlamaGame extends FlameGame with HasTappables {
 
   }
 
+  /*
+  creates the get blocks button and calls the instructions when it gets clicked
+   */
   void createGetBlocksButton(){
     getBlocksButton = SpriteTextButton(
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
@@ -205,6 +229,7 @@ class LlamaGame extends FlameGame with HasTappables {
       scale: Vector2(0.1,0.1),
       position: Vector2(50,30),
       onPressed: () async{
+        //creates a load character while waiting for the instructions
         loadCharacter = LoadCharacter()
           ..size = (squareSize *1.75)
           ..position = Vector2(100,100);
@@ -212,9 +237,10 @@ class LlamaGame extends FlameGame with HasTappables {
         add(loadCharacter);
         startLoad = true;
 
-        getBlocksRun = true;
+        blocksAvailable = true;
         print("Get Blocks");
 
+        //calls getInstructions to retrieve the instructions from photo
         getInstructions().then((value) {
           print("in await");
           print("value type: " + value.runtimeType.toString());
@@ -233,6 +259,9 @@ class LlamaGame extends FlameGame with HasTappables {
     );
   }
 
+  /*
+  creates the Run Blocks button and what it needs to do when clicked
+   */
   void createRunBlocksButton(){
     runBlocksButton = SpriteTextButton(
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
@@ -241,7 +270,8 @@ class LlamaGame extends FlameGame with HasTappables {
       position: Vector2(495, 425),
       onPressed: () {
         print("Run Blocks");
-        if(getBlocksRun == true){//rename bool blocksAvailable
+        //if the blocks are available, then makes the character move and adds the new blocks
+        if(blocksAvailable == true){
           var getComponents = RunBlocksButton(character, response.instructions);
           var newComponents = getComponents.newComponents;
           for(var element in newComponents){

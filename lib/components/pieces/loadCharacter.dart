@@ -1,6 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 
+/*
+creates the loading character and gives it movement
+ */
 class LoadCharacter extends SpriteAnimationComponent {
   List<Sprite> runSprites = [
     Sprite(Flame.images.fromCache('llama_eat_1.png')),
@@ -26,6 +29,7 @@ class LoadCharacter extends SpriteAnimationComponent {
         stepTime: 0.7);
   }
 
+  //updates the loading character's movement
   @override
   void update(double dt) {
     super.update(dt);

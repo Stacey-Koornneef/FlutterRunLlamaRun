@@ -1,35 +1,44 @@
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
-import 'package:testing/llama.dart';
+
 import '../pieces/grassBlocks.dart';
-import 'package:flame/experimental.dart';
 import '../pieces/pavementBlocks.dart';
 import '../pieces/character.dart';
 import '../pieces/apple.dart';
 
+/*
+the class responsibile for making all levels, including the apple, character,
+various blocks, and the solution
+ */
 class Level {
+  //sizing for the blocks
   static const double squareWidth = 80;
   static const double squareHeight = 80;
   static const double squareGap = 3;
   static const double squareRadius = 3.0;
   static final Vector2 squareSize = Vector2(squareWidth, squareHeight);
 
-  final grassBlocks = <GrassBlocks>[];
-  final pavementBlocks = <PavementBlocks>[];
+  //final grassBlocks = <GrassBlocks>[];
+  //final pavementBlocks = <PavementBlocks>[];
 
-
-
-  //Iterable? blocks;
+  //allows the blocks, solution, and character to be accessed by llama.dart
   var blocks = [];
   var solution = [];
   var character;
 
+  /*
+  creates the basic board of grass blocks, then adjusts in the different levels
+   */
   Level(int level){
     print("in level");
-    /*for(var x = 0; x <= 4; x++){
-      var createBlock = GrassBlocks()
-          ..size = squareSize
-          .. position = Vector2(((2+x)+2) *(squareWidth + squareGap) + squareGap, squareGap);*/
+
+    //creates a 5 by 5 grid of grass blocks
+    /* Indexing positions:
+    0   1   2   3   4
+    5   6   7   8   9
+    10  11  12  13  14
+    15  16  17  18  19
+    20  21  22  23  24
+     */
     for(var y = 0; y <= 4; y++){
       for(var x = 0; x <= 4 ; x++){
         var createBlock = GrassBlocks()
@@ -42,6 +51,7 @@ class Level {
 
     }
 
+    //send to correct level
     if(level == 1){
       LevelOne();
     }else if(level == 2){
@@ -54,6 +64,10 @@ class Level {
 
   }
 
+  /*
+  adjusts the board for level 1 and adds the character and apple and defines the
+  solution
+   */
   LevelOne(){
     var b1 = PavementBlocks()
         ..size = squareSize
@@ -98,6 +112,10 @@ class Level {
 
   }
 
+  /*
+  adjusts the board for level 2 and adds the character and apple and defines the
+  solution
+   */
   LevelTwo(){
     var b1 = PavementBlocks()
       ..size = squareSize

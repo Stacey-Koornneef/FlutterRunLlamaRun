@@ -1,7 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 
-
+/*
+creates the pavement blocks for levels
+ */
 class PavementBlocks extends SpriteComponent{
   PavementBlocks() : super(
     sprite: Sprite(Flame.images.fromCache('mypavementlarge.jpg')),

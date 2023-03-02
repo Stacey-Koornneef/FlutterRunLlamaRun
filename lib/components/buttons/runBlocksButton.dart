@@ -1,19 +1,21 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/flame.dart';
 import '../../llama.dart';
 import '../pieces/character.dart';
-import 'spriteTextButton.dart';
-import 'package:collection/collection.dart';
 import 'checkSolution.dart';
 
-
+/*
+all functionality relating to running the instructions, ie making the llama move
+ */
 class RunBlocksButton extends SpriteComponent{
   var blocks = [];
   var newComponents = [];
 
+  /*
+  goes through the list of instructions and directs each instruction to the correct
+  movement function and then checks if the solution is correct
+   */
   RunBlocksButton(Character character, List instructions){
-    print("Run Blocks Button");
     print(instructions);
     //go through the list of instructions and send them to the correct function
     instructions.forEach((i){
@@ -31,6 +33,7 @@ class RunBlocksButton extends SpriteComponent{
         pickUp(character);
       };
 
+      //TODO move this so that it only happens at the end of the list
       CheckSolution(instructions, levelSolution);
 
     });
@@ -50,45 +53,18 @@ class RunBlocksButton extends SpriteComponent{
     character.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)),);
   }
 
+  //moves the character to the block on the right over 1 second
   moveRight(Character character){
     character.add(MoveByEffect(Vector2(90, 0), EffectController(duration: 1)),);
   }
 
+  //the pick up block, removes the apple
   pickUp(Character character){
+    //TODO
     print("PICKUP");
 
   }
 
-  /*isCorrect(List instructions, List solution){
-    print("instructions: " + instructions.toString());
-    print("solution: " + solution.toString());
-    Function equality = const DeepCollectionEquality().equals;
-    print(equality(instructions, solution));
-    /*if(level == 1){
-      print("instructions: " + instructions.toString());
-      var testResult = (instructions == ["FORWARD", "FORWARD", "PICKUP"]);
-      print("instructions are correct: " + testResult.toString());
-      Function equality = const DeepCollectionEquality().equals;
-      print(equality(instructions, ["FORWARD", "FORWARD", "PICKUP"]));
-      if(equality(instructions, ["FORWARD", "FORWARD", "PICKUP"])){
-        print("in instructions loop");
-        var continueButton = SpriteTextButton(
-          button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
-          priority: 200,
-          scale: Vector2(0.1,0.1),
-          position: Vector2(50,400),
-          onPressed: () {
-            level = level + 1;
-            reset = true;
-          },
-          text: "Continue",
-          textXShift: 600,
-          textYShift: -200,
-        );
-
-        newComponents.add(continueButton);
-      }*/
-    }*/
   }
 
 
