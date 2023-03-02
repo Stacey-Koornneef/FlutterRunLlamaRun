@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:testing/components/pieces/apple.dart';
 
 import 'components/buttons/spriteTextButton.dart';
 import 'components/buttons/getBlocks.dart';
@@ -21,6 +22,8 @@ bool reset = false;
 bool addContinueButton = false;
 //determines if the try again button needs to be added
 bool addTryAgainButton = false;
+//determines if the apple needs to be removed
+bool removeApple = false;
 
 //gets information about the continue button
 var getContinueButton = ContinueButton();
@@ -164,6 +167,11 @@ class LlamaGame extends FlameGame with HasTappables {
       add(tryAgainButton);
       components.add(tryAgainButton);
       addTryAgainButton = false;
+    }
+
+    if(removeApple == true){
+      remove(apple);
+      removeApple = false;
     }
 
 

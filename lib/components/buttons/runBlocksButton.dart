@@ -60,7 +60,7 @@ class RunBlocksButton extends SpriteComponent{
 
   //the pick up block, removes the apple
   pickUp(Character character){
-    //TODO
+    removeApple = true;
     print("PICKUP");
 
   }
