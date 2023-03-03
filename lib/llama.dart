@@ -153,6 +153,7 @@ class LlamaGame extends FlameGame with HasTappables {
       apple = levelOverall.apple;
 
       //add all of the new level information
+      components = [];
       for(var element in levelBlocks){
         add(element);
         components.add(element);
