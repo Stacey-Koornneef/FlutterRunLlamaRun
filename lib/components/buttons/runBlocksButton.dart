@@ -41,14 +41,14 @@ class RunBlocksButton extends SpriteComponent{
   }
 
   //moves the character one block up over 1 second
-  moveForward(Character character){
+  Future moveForward(Character character) async{
     print("in moveforward");
     character.add(MoveByEffect(Vector2(0, -90), EffectController(duration: 1)),);
 
   }
 
   //moves the character to the block on the left over 1 second
-  moveLeft(Character character){
+  Future moveLeft(Character character) async{
     print("in moveleft");
     character.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)),);
   }
@@ -59,7 +59,8 @@ class RunBlocksButton extends SpriteComponent{
   }
 
   //the pick up block, removes the apple
-  pickUp(Character character){
+  //TODO CHECK IF THE FUTURE WORKS
+  Future pickUp(Character character) async{
     removeApple = true;
     print("PICKUP");
 

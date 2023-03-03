@@ -24,6 +24,8 @@ bool addContinueButton = false;
 bool addTryAgainButton = false;
 //determines if the apple needs to be removed
 bool removeApple = false;
+//determines if the apple is still on the board
+bool appleAvailable = false;
 
 //gets information about the continue button
 var getContinueButton = ContinueButton();
@@ -132,7 +134,15 @@ class LlamaGame extends FlameGame with HasTappables {
       print(components);
       for(var i in components){
         remove(i);
+        print(i);
       }
+
+      if(appleAvailable == true){
+        remove(apple);
+        appleAvailable = false;
+      }
+      //remove(apple);
+      //appleAvailable = false;
       //remove(character);
 
       //gets new level information, in case the level changed
@@ -150,7 +160,8 @@ class LlamaGame extends FlameGame with HasTappables {
       add(character);
       components.add(character);
       add(apple);
-      components.add(apple);
+      appleAvailable = true;
+      //components.add(apple);
 
       reset = false;
     }
@@ -172,6 +183,7 @@ class LlamaGame extends FlameGame with HasTappables {
     if(removeApple == true){
       remove(apple);
       removeApple = false;
+      appleAvailable = false;
     }
 
 
@@ -208,7 +220,8 @@ class LlamaGame extends FlameGame with HasTappables {
     }
 
     components.add(character);
-    components.add(apple);
+    //components.add(apple);
+    add(apple);
     add(runBlocksButton!);
     addAll(components);
 
