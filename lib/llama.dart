@@ -256,6 +256,7 @@ class LlamaGame extends FlameGame with HasTappables {
       scale: Vector2(0.1,0.1),
       position: Vector2(50,30),
       onPressed: () async{
+        reset = true;
         //creates a load character while waiting for the instructions
         loadCharacter = LoadCharacter()
           ..size = (squareSize *1.75)
