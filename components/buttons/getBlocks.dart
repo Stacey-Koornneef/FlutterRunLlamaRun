@@ -2,19 +2,25 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import '../pieces/movementBlocks.dart';
 
-
+/*
+this class does everything relating to adding the instruction blocks to the main
+app screen
+ */
 class GetBlocks extends SpriteComponent{
+  //the list of blocks that can be accessed in llama.dart
   var blocks = [];
 
+  /*
+  goes through each instruction and creates the matching block
+   */
   GetBlocks(List instructions){
     print("in getBlocks");
     var yPosition = 120.0;
     instructions.forEach((i){
       print(i);
-      //var name = "block" + i.toString();
-
       if(i == "FORWARD"){
         print("in forward");
+        //makes the forward block
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)
           ..scale = Vector2(3, 3)
@@ -22,6 +28,7 @@ class GetBlocks extends SpriteComponent{
           );
         blocks.add(name);
       }
+      //makes the left block
       else if(i == "LEFT"){
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)
@@ -30,6 +37,7 @@ class GetBlocks extends SpriteComponent{
           );
         blocks.add(name);
       }
+      //makes the right block
       else if(i == "RIGHT"){
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)
@@ -38,6 +46,7 @@ class GetBlocks extends SpriteComponent{
           );
         blocks.add(name);
       }
+      //makes the pick up block
       else if(i == "PICKUP"){
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)

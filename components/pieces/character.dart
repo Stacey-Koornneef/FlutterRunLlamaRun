@@ -1,6 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 
+/*
+creates the character image and gives it movement
+ */
 class Character extends SpriteAnimationComponent {
   List<Sprite> runSprites = [
     Sprite(Flame.images.fromCache('llama_walk_back_1.png')),
@@ -24,6 +27,7 @@ class Character extends SpriteAnimationComponent {
         stepTime: 0.5);
   }
 
+  //makes the llama animation update
   @override
   void update(double dt) {
     super.update(dt);

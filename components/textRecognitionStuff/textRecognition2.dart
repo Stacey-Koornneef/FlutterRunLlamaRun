@@ -11,6 +11,10 @@ class TextRecognition2 extends ChangeNotifier{
 var instructions = [];
 var blocks = [];
 
+/*
+This does everything relating to the text recognition.  I'm not 100% sure how it
+works, but it does.  It's best not to touch it
+ */
   TextRecognition2(){
     print("in text recognition2");
 

@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 
+/*
+Sprite Text Button class created by Michael Miljanovic
+
+This is the basis for all buttons in the game
+ */
 class SpriteTextButton extends SpriteButtonComponent {
   TextComponent? buttonText;
 

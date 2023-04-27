@@ -1,6 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 
+/*
+creates the grass blocks for levels
+ */
 class GrassBlocks extends SpriteComponent{
   GrassBlocks() : super(
     sprite: Sprite(Flame.images.fromCache('mygrasslarge.jpg')),

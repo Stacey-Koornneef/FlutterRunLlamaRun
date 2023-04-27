@@ -2,6 +2,9 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 
 
+/*
+creates the apple image
+ */
 class Apple extends SpriteComponent{
   Apple() : super(
     sprite: Sprite(Flame.images.fromCache('apple.png')),

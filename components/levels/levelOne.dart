@@ -1,3 +1,8 @@
+/*
+DEFUNCT
+ */
+
+
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import '../pieces/grassBlocks.dart';
@@ -202,6 +207,12 @@ class LevelOne  {
         (squareHeight*4) + 5 * squareGap,);
 
     blocks.add(character);*/
+
+    final character = Character()
+      ..size = (squareSize * 1.75)
+      ..position = Vector2(squareGap + (4.65+2) * (squareWidth + squareGap),
+        (squareHeight*3.7) + 3 * squareGap,);
+    blocks.add(character);
 
     final apple = Apple()
       ..size = Vector2(squareHeight/2, squareHeight/2)
