@@ -154,14 +154,14 @@ class LlamaGame extends FlameGame with HasTappables {
         remove(i);
         print(i);
       }
-      removeApple=true;
+      //removeApple=true;
       //remove(apple);
 
-      /*if(appleAvailable == true){
+      if(appleAvailable == true){
         remove(apple);
         appleAvailable = false;
         print("removing apple");
-      }*/
+      }
 
 
       //gets new level information, in case the level changed
