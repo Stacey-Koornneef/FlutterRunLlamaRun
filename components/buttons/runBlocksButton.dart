@@ -33,10 +33,10 @@ class RunBlocksButton extends SpriteComponent{
         pickUp(character);
       };
 
-      //TODO move this so that it only happens at the end of the list
-      CheckSolution(instructions, levelSolution);
 
     });
+    
+    CheckSolution(instructions, levelSolution);
 
   }
 
