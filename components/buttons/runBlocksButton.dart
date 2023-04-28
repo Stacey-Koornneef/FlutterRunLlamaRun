@@ -18,7 +18,7 @@ class RunBlocksButton extends SpriteComponent{
   RunBlocksButton(Character character, List instructions){
     print(instructions);
     //go through the list of instructions and send them to the correct function
-    instructions.forEach((i){
+    /*instructions.forEach((i){
       print(i);
       if(i == "FORWARD"){
         moveForward(character);
@@ -34,23 +34,47 @@ class RunBlocksButton extends SpriteComponent{
       };
 
 
+    });*/
+    instructions.forEach((i) {
+      Future.delayed(Duration(seconds: 1), (){
+        if(i == "FORWARD"){
+          moveForward(character);
+        }
+        else if(i == "LEFT"){
+          moveLeft(character);
+        }
+        else if(i == "RIGHT"){
+          moveRight(character);
+        }
+        else if(i == "PICKUP"){
+          pickUp(character);
+        };
+      });
     });
-    
+
     CheckSolution(instructions, levelSolution);
 
   }
 
   //moves the character one block up over 1 second
-  Future moveForward(Character character) async{
+  moveForward(Character character){
     print("in moveforward");
     character.add(MoveByEffect(Vector2(0, -90), EffectController(duration: 1)),);
+    /*Future.delayed(Duration(seconds: 1), (){
+      character.add(MoveByEffect(Vector2(0, -90), EffectController(duration: 1)),);
+    });*/
+
 
   }
 
   //moves the character to the block on the left over 1 second
-  Future moveLeft(Character character) async{
+  moveLeft(Character character){
     print("in moveleft");
     character.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)),);
+    /*Future.delayed(Duration(seconds: 1), (){
+      character.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)),);
+    });*/
+
   }
 
   //moves the character to the block on the right over 1 second
