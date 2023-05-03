@@ -29,6 +29,8 @@ bool addTryAgainButton = false;
 bool removeApple = false;
 //determines if the apple is still on the board
 bool appleAvailable = false;
+//for checking if the solution is correct and the apple can be picked up
+bool canPickUpApple = false;
 
 //gets information about the continue button
 var getContinueButton = ContinueButton();
@@ -150,6 +152,7 @@ class LlamaGame extends FlameGame with HasTappables {
     if(reset == true){
       print("reset");
       print(components);
+      canPickUpApple = false;
       for(var i in components){
         remove(i);
         print(i);

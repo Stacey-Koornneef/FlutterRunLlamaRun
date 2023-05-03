@@ -60,6 +60,8 @@ class Level {
       LevelOne();
     }else if(level == 2){
       LevelTwo();
+    }else if(level == 3){
+      LevelThree();
     }
 
 
@@ -179,5 +181,80 @@ class Level {
     solution = ["FORWARD", "FORWARD","LEFT", "LEFT", "PICKUP"];
 
   }
+
+  /*
+  adjusts the board for level 2 and adds the character and apple and defines the
+  solution
+   */
+  LevelThree(){
+    var b1 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((4+2)+2) *(squareSide + squareGap) + squareGap,
+          (squareSide * (4)) + ((4+0.5) * squareGap));
+
+    blocks.removeAt(22);
+    blocks.insert(22, b1);
+
+    var b2 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((4+1)+2) *(squareSide + squareGap) + squareGap,
+          (squareSide * (4)) + ((4+0.5) * squareGap));
+
+    blocks.removeAt(21);
+    blocks.insert(21, b2);
+
+    var b3 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((4+1)+2) *(squareSide + squareGap) + squareGap,
+          (squareSide * (3)) + ((3+0.5) * squareGap));
+
+    blocks.removeAt(16);
+    blocks.insert(16, b3);
+
+    var b4 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((4+1)+2) *(squareSide + squareGap) + squareGap,
+          (squareSide * (2)) + ((2+0.5) * squareGap));
+
+    blocks.removeAt(11);
+    blocks.insert(11, b4);
+
+    var b5 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((4+2)+2) *(squareSide + squareGap) + squareGap,
+          (squareSide * (2)) + ((2+0.5) * squareGap));
+
+    blocks.removeAt(12);
+    blocks.insert(12, b5);
+
+    var b6 = PavementBlocks()
+      ..size = squareSize
+      .. position = Vector2(((4+3)+2) *(squareSide + squareGap) + squareGap,
+          (squareSide * (2)) + ((2+0.5) * squareGap));
+
+    blocks.removeAt(13);
+    blocks.insert(13, b6);
+
+
+    print(blocks);
+
+    character = Character()
+      ..size = (squareSize * 1.75)
+      ..position = Vector2(squareGap + ((6.65-1)+2) * (squareSide + squareGap),
+        (squareSide*3.7) + 3 * squareGap,);
+    //blocks.add(character);
+
+    apple = Apple()
+      ..size = Vector2(squareSide/2, squareSide/2)
+      ..position = Vector2(squareGap + ((8.25-1)+1) * (squareSide + squareGap),
+        (squareSide*2.3) + 2.5 * squareGap,);
+
+    //blocks.add(apple);
+
+    solution = ["LEFT", "FORWARD","FORWARD", "RIGHT", "PICKUP"];
+
+  }
+
+
 }
 

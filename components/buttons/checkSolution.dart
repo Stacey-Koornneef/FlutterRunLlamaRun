@@ -35,6 +35,7 @@ class CheckSolution {
   isCorrect(){
     print("CORRECT");
 
+    //canPickUpApple = true;
     ContinueButton();
 
   }

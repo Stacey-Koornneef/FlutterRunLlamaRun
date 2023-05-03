@@ -47,7 +47,7 @@ class RunBlocksButton extends SpriteComponent{
           moveRight(character);
         }
         else if(i == "PICKUP"){
-          pickUp(character);
+          pickUp(character, instructions);
         };
       });
     });
@@ -84,9 +84,15 @@ class RunBlocksButton extends SpriteComponent{
 
   //the pick up block, removes the apple
   //TODO CHECK IF THE FUTURE WORKS (briefly removed future for debugging purposes)
-  pickUp(Character character) async{
+  pickUp(Character character, List instructions) async{
     removeApple = true;
     print("PICKUP");
+
+    CheckSolution(instructions, levelSolution);
+
+    if(canPickUpApple = true){
+      removeApple = true;
+    }
 
   }
 
