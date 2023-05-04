@@ -62,6 +62,8 @@ class Level {
       LevelTwo();
     }else if(level == 3){
       LevelThree();
+    }else if(level == 4){
+      LevelFour();
     }
 
 
@@ -335,7 +337,7 @@ class Level {
     apple = Apple()
       ..size = Vector2(squareSide/2, squareSide/2)
       ..position = Vector2(squareGap + ((10.25-1)+1) * (squareSide + squareGap),
-        (squareSide*0.3) + 1.5 * squareGap,);
+        (squareSide*3.3) + 1.5 * squareGap,);
 
     //blocks.add(apple);
 
