@@ -60,6 +60,8 @@ var apple = levelOverall.apple;
 var height;
 var width;
 
+
+
 //a list of all of the visible components in the app
 List<Component> components = [];
 //current level

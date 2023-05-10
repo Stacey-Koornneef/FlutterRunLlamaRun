@@ -16,25 +16,11 @@ class RunBlocksButton extends SpriteComponent{
   movement function and then checks if the solution is correct
    */
   RunBlocksButton(Character character, List instructions){
-    print(instructions);
+
+    getMovements(instructions);
+    /*print(instructions);
     //go through the list of instructions and send them to the correct function
-    /*instructions.forEach((i){
-      print(i);
-      if(i == "FORWARD"){
-        moveForward(character);
-      }
-      else if(i == "LEFT"){
-        moveLeft(character);
-      }
-      else if(i == "RIGHT"){
-        moveRight(character);
-      }
-      else if(i == "PICKUP"){
-        pickUp(character);
-      };
 
-
-    });*/
     instructions.forEach((i) {
       Future.delayed(Duration(seconds: 1), (){
         if(i == "FORWARD"){
@@ -63,6 +49,7 @@ class RunBlocksButton extends SpriteComponent{
     /*Future.delayed(Duration(seconds: 1), (){
       character.add(MoveByEffect(Vector2(0, -90), EffectController(duration: 1)),);
     });*/
+  */
 
 
   }
