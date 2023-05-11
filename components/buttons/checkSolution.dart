@@ -10,6 +10,8 @@ This class is used to check if the users solution is correct or not
  */
 class CheckSolution {
 
+  bool correct = false;
+
   /*
   Checks to see if the solution is correct or not, then sends to the appropriate
   function
@@ -21,10 +23,13 @@ class CheckSolution {
     Function equality = const DeepCollectionEquality().equals;
     print(equality(instructions, solution));
 
+
     if(equality(instructions, solution)){
       isCorrect();
+      correct = true;
     }else{
       isIncorrect();
+      correct = false;
     }
 
   }

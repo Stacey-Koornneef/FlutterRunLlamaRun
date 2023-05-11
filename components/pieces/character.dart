@@ -63,12 +63,13 @@ void moveRight() {
 
 //Picks up the apple and checks solution
 void pickUp(List instructions) {
-  removeApple = true;
+  //removeApple = true;
   print("PICKUP");
 
-  CheckSolution(instructions, levelSolution);
+  var isCorrect = CheckSolution(instructions, levelSolution);
+  var correct = isCorrect.correct;
 
-  if(canPickUpApple = true){
+  if((correct == true) && (canPickUpApple = true)){
     removeApple = true;
   }
 }
