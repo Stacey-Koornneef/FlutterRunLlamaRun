@@ -9,6 +9,7 @@ creates the character image and gives it movement
  */
 
 final effectQueue = [];
+var moveLength = (squareSide + squareGap);
 
 class Character extends SpriteAnimationComponent {
   List<Sprite> runSprites = [
@@ -17,7 +18,6 @@ class Character extends SpriteAnimationComponent {
     Sprite(Flame.images.fromCache('llama_walk_back_3.png')),
     Sprite(Flame.images.fromCache('llama_walk_back_4.png')),
   ];
-
 
 
   SpriteAnimation? runAnimation;
@@ -48,17 +48,17 @@ class Character extends SpriteAnimationComponent {
 
 // Moves the character one block up over 1 second
 void moveForward() {
-  effectQueue.add(MoveByEffect(Vector2(0, -90), EffectController(duration: 1)));
+  effectQueue.add(MoveByEffect(Vector2(0, -(moveLength)), EffectController(duration: 1)));
 }
 
 // Moves the character one block left over 1 second
 void moveLeft() {
-  effectQueue.add(MoveByEffect(Vector2(-90, 0), EffectController(duration: 1)));
+  effectQueue.add(MoveByEffect(Vector2(-(moveLength), 0), EffectController(duration: 1)));
 }
 
 // Moves the character one block right over 1 second
 void moveRight() {
-  effectQueue.add(MoveByEffect(Vector2(90, 0), EffectController(duration: 1)));
+  effectQueue.add(MoveByEffect(Vector2((moveLength), 0), EffectController(duration: 1)));
 }
 
 //Picks up the apple and checks solution
