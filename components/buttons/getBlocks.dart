@@ -23,7 +23,7 @@ class GetBlocks extends SpriteComponent{
         //makes the forward block
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)
-          ..scale = Vector2(3, 3)
+          ..scale = Vector2(2.5, 2.5)
           ..sprite = Sprite(Flame.images.fromCache('forwardBlock.png')
           );
         blocks.add(name);
@@ -32,7 +32,7 @@ class GetBlocks extends SpriteComponent{
       else if(i == "LEFT"){
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)
-          ..scale = Vector2(3, 3)
+          ..scale = Vector2(2.5, 2.5)
           ..sprite = Sprite(Flame.images.fromCache('leftBlock.png')
           );
         blocks.add(name);
@@ -41,7 +41,7 @@ class GetBlocks extends SpriteComponent{
       else if(i == "RIGHT"){
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)
-          ..scale = Vector2(3, 3)
+          ..scale = Vector2(2.5, 2.5)
           ..sprite = Sprite(Flame.images.fromCache('rightBlock.png')
           );
         blocks.add(name);
@@ -50,12 +50,12 @@ class GetBlocks extends SpriteComponent{
       else if(i == "PICKUP"){
         final name = MovementBlocks()
           ..position = Vector2(50, yPosition)
-          ..scale = Vector2(3, 3)
+          ..scale = Vector2(2.5, 2.5)
           ..sprite = Sprite(Flame.images.fromCache('pickUpBlock.png')
           );
         blocks.add(name);
       };
-      yPosition = yPosition + 75;
+      yPosition = yPosition + 50;
     });
 
   }

@@ -71,6 +71,7 @@ void pickUp(List instructions) {
 
   if((correct == true) && (canPickUpApple = true)){
     removeApple = true;
+    //effectQueue.add(removeApple = true);
   }
 }
 
