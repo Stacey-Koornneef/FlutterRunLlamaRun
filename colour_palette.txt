@@ -1,4 +1,4 @@
-Color Blind Friendly Palettes
+Color Palette
 
 https://davidmathlogic.com/colorblind/#%23000000-%23FFFFFF-%23F1F1F1-%238A867C-%232F6B2E-%233890CA-%23EE442F-%23601A4A
 
