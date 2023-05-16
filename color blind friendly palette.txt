@@ -1,0 +1,16 @@
+Color Blind Friendly Palettes
+
+https://davidmathlogic.com/colorblind/#%23000000-%23FFFFFF-%23F1F1F1-%238A867C-%232F6B2E-%233890CA-%23EE442F-%23601A4A
+
+Switch red to orange
+https://davidmathlogic.com/colorblind/#%23000000-%23FFFFFF-%23F1F1F1-%238A867C-%232F6B2E-%233890CA-%23EF7500-%23601A4A
+
+added a yellow
+https://davidmathlogic.com/colorblind/#%23000000-%23FFFFFF-%23F1F1F1-%238A867C-%232F6B2E-%233890CA-%23EF7500-%23601A4A-%23E7EA2A
+
+added a red:
+https://davidmathlogic.com/colorblind/#%23000000-%23FFFFFF-%23F1F1F1-%238A867C-%232F6B2E-%233890CA-%23EF7500-%23601A4A-%23E7EA2A-%23B31212
+
+Characters:
+https://opengameart.org/content/lpc-style-farm-animals
+https://opengameart.org/sites/default/files/key_4.png
