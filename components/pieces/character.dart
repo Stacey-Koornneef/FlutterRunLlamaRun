@@ -11,6 +11,7 @@ creates the character image and gives it movement
 final effectQueue = [];
 var moveLength = (squareSide + squareGap);
 
+
 class Character extends SpriteAnimationComponent {
   List<Sprite> runSprites = [
     Sprite(Flame.images.fromCache('llama_walk_back_1.png')),
@@ -48,17 +49,47 @@ class Character extends SpriteAnimationComponent {
 
 // Moves the character one block up over 1 second
 void moveForward() {
-  effectQueue.add(MoveByEffect(Vector2(0, -(moveLength)), EffectController(duration: 1)));
+  llamaLocation = llamaLocation - 5;
+  print("llamalocation = " + llamaLocation.toString());
+  //effectQueue.add(MoveByEffect(Vector2(0, -(moveLength)), EffectController(duration: 1)));
+  if(llamaLocation >= 0){
+    print("move forward");
+    effectQueue.add(MoveByEffect(Vector2(0, -(moveLength)), EffectController(duration: 1)));
+  }else{
+    print("bump");
+    effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
+  }
 }
 
 // Moves the character one block left over 1 second
 void moveLeft() {
-  effectQueue.add(MoveByEffect(Vector2(-(moveLength), 0), EffectController(duration: 1)));
+  llamaLocation = llamaLocation - 1;
+  if((llamaLocation >= 0) && ((llamaLocation != 4) && (llamaLocation != 9) && (llamaLocation != 14) && (llamaLocation != 19))){
+    effectQueue.add(MoveByEffect(Vector2(-(moveLength), 0), EffectController(duration: 1)));
+  }else{
+    effectQueue.add(MoveByEffect(Vector2(-(moveLength/10.0), 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2((moveLength/10.0), 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(-(moveLength/10.0), 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2((moveLength/10.0), 0), EffectController(duration: 0.25)));
+  }
+  //effectQueue.add(MoveByEffect(Vector2(-(moveLength), 0), EffectController(duration: 1)));
 }
 
 // Moves the character one block right over 1 second
 void moveRight() {
-  effectQueue.add(MoveByEffect(Vector2((moveLength), 0), EffectController(duration: 1)));
+  llamaLocation = llamaLocation + 1;
+  if((llamaLocation <= 24) && (llamaLocation != 5) && (llamaLocation != 10) && (llamaLocation != 15) && (llamaLocation != 20)){
+    effectQueue.add(MoveByEffect(Vector2((moveLength), 0), EffectController(duration: 1)));
+  }else{
+    effectQueue.add(MoveByEffect(Vector2((moveLength/10.0), 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(-(moveLength/10.0), 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2((moveLength/10.0), 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(-(moveLength/10.0), 0), EffectController(duration: 0.25)));
+  }
+  //effectQueue.add(MoveByEffect(Vector2((moveLength), 0), EffectController(duration: 1)));
 }
 
 //Picks up the apple and checks solution
