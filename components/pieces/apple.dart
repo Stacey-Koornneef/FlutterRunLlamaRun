@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
+import '../../llama.dart';
 
 
 /*
@@ -12,4 +13,5 @@ class Apple extends SpriteComponent{
     size: Vector2(50, 50),
     priority: 3,
   );
+
 }

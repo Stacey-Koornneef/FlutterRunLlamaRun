@@ -78,6 +78,7 @@ class Level {
    */
   LevelOne(){
     llamaLocation = 22;
+    appleLocation = 12;
     var b1 = PavementBlocks()
         ..size = squareSize
         .. position = Vector2(((4+2)+2) *(squareSide + squareGap) + squareGap,
@@ -127,6 +128,7 @@ class Level {
    */
   LevelTwo(){
     llamaLocation = 22;
+    appleLocation = 10;
     var b1 = PavementBlocks()
       ..size = squareSize
       .. position = Vector2(((4+2)+2) *(squareSide + squareGap) + squareGap,
@@ -191,6 +193,7 @@ class Level {
   solution
    */
   LevelThree(){
+    appleLocation = 12;
     llamaLocation = 22;
     var b1 = PavementBlocks()
       ..size = squareSize
@@ -265,6 +268,7 @@ class Level {
   solution
    */
   LevelFour(){
+    appleLocation = 19;
     llamaLocation = 22;
     var b1 = PavementBlocks()
       ..size = squareSize

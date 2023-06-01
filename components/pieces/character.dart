@@ -95,7 +95,7 @@ void moveRight() {
 //Picks up the apple and checks solution
 void pickUp(List instructions) {
   //removeApple = true;
-  print("PICKUP");
+  /*print("PICKUP");
 
   var isCorrect = CheckSolution(instructions, levelSolution);
   var correct = isCorrect.correct;
@@ -103,8 +103,22 @@ void pickUp(List instructions) {
   if((correct == true) && (canPickUpApple = true)){
     removeApple = true;
     //effectQueue.add(removeApple = true);
+  }*/
+  print("llamalocation = " + llamaLocation.toString());
+  print("applelocation = " + appleLocation.toString());
+  if((llamaLocation == appleLocation)){
+    removeApple = true;
+    effectQueue.add(MoveByEffect(Vector2(0, 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
+  }else{
+    effectQueue.add(MoveByEffect(Vector2(0, 0), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
+    effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
   }
+
 }
+
 
 //gets the list of instructions and calls the movements to add to the character
 void getMovements(List instructions){
@@ -122,4 +136,5 @@ void getMovements(List instructions){
       pickUp(instructions);
     };
   });
+  CheckSolution(instructions, levelSolution);
 }

@@ -66,7 +66,7 @@ var width;
 List<Component> components = [];
 //current level
 int level = 1;
-//location for llama
+//location for llama and apple
 /*
 0     1     2     3     4
 5     6     7     8     9
@@ -75,6 +75,8 @@ int level = 1;
 20    21    22    23    24
  */
 int llamaLocation = 22;
+int appleLocation = 12;
+
 
 
 
