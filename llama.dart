@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:testing/components/pieces/apple.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,8 @@ import 'components/levels/level.dart';
 import 'components/buttons/continueButton.dart';
 import 'components/buttons/tryAgainButton.dart';
 import 'dart:async';
+
+import 'dart:ui' hide TextStyle;
 
 //determines if the movement blocks need to be updated on the main screen
 bool timeToUpdate = false;
@@ -76,6 +79,27 @@ int level = 1;
  */
 int llamaLocation = 22;
 int appleLocation = 12;
+
+//various text messages for the use
+final style = TextStyle(color: BasicPalette.darkBlue.color);
+final regular = TextPaint(style: style);
+
+TextComponent startText = TextComponent(text: 'Use the blocks to help the llama pick up the apple', textRenderer: regular)
+  ..anchor = Anchor.topCenter
+  ..x = (width * 0.2)
+  ..y = (height - (height*0.5))
+  ..priority = 300;
+
+TextComponent noBlocksText = TextComponent(text: 'No blocks are found.  Take another picture!', textRenderer: regular)
+  ..anchor = Anchor.topCenter
+  ..x = (width * 0.2)
+  ..y = (height - (height*0.75))
+  ..priority = 300;
+
+//bools for adding text
+bool noBlocksFound = false;
+bool noBlocksTextAvailable = false;
+bool startTextAvailable = true;
 
 
 
@@ -170,6 +194,12 @@ class LlamaGame extends FlameGame with HasTappables {
         remove(i);
         print(i);
       }
+
+      //add(startText);
+
+      if(noBlocksTextAvailable == true){
+        remove(noBlocksText);
+      }
       //removeApple=true;
       //remove(apple);
 
@@ -240,6 +270,10 @@ class LlamaGame extends FlameGame with HasTappables {
 
     }
 
+    if(noBlocksFound == true){
+      add(noBlocksText);
+      noBlocksTextAvailable = true;
+    }
 
   }
 
@@ -296,6 +330,10 @@ class LlamaGame extends FlameGame with HasTappables {
     addAll(components);
     appleAvailable=true;
 
+
+    //add(startText);
+
+
   }
 
 
@@ -308,6 +346,9 @@ class LlamaGame extends FlameGame with HasTappables {
       print("response after text recognition: " + response.toString());
       var getBlocks = GetBlocks(response.instructions);
       print("getBlocks = " + getBlocks.toString());
+      if(getBlocks == []){
+        noBlocksFound = true;
+      }
       var getBlocksList = getBlocks.blocks;
 
       return (getBlocksList);
@@ -327,6 +368,10 @@ class LlamaGame extends FlameGame with HasTappables {
       position: Vector2(50,30),
       onPressed: () async{
         reset = true;
+        //TODO remove(startText);
+        /*if(startTextAvailable == true){
+          remove(startText);
+        }*/
         //creates a load character while waiting for the instructions
         loadCharacter = LoadCharacter()
           ..size = (squareSize *1.75)

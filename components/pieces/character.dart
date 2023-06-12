@@ -13,6 +13,7 @@ var moveLength = (squareSide + squareGap);
 
 
 class Character extends SpriteAnimationComponent {
+  //the list of llama walking sprites in order
   List<Sprite> runSprites = [
     Sprite(Flame.images.fromCache('llama_walk_back_1.png')),
     Sprite(Flame.images.fromCache('llama_walk_back_2.png')),
@@ -56,6 +57,7 @@ void moveForward() {
     print("move forward");
     effectQueue.add(MoveByEffect(Vector2(0, -(moveLength)), EffectController(duration: 1)));
   }else{
+    //makes the character bump the top if it goes out of board bounds
     print("bump");
     effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
@@ -70,6 +72,7 @@ void moveLeft() {
   if((llamaLocation >= 0) && ((llamaLocation != 4) && (llamaLocation != 9) && (llamaLocation != 14) && (llamaLocation != 19))){
     effectQueue.add(MoveByEffect(Vector2(-(moveLength), 0), EffectController(duration: 1)));
   }else{
+    //makes the character bump the side if it goes out of board bounds
     effectQueue.add(MoveByEffect(Vector2(-(moveLength/10.0), 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2((moveLength/10.0), 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(-(moveLength/10.0), 0), EffectController(duration: 0.25)));
@@ -84,6 +87,7 @@ void moveRight() {
   if((llamaLocation <= 24) && (llamaLocation != 5) && (llamaLocation != 10) && (llamaLocation != 15) && (llamaLocation != 20)){
     effectQueue.add(MoveByEffect(Vector2((moveLength), 0), EffectController(duration: 1)));
   }else{
+    //make character bump the side if it goes out of board bounds
     effectQueue.add(MoveByEffect(Vector2((moveLength/10.0), 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(-(moveLength/10.0), 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2((moveLength/10.0), 0), EffectController(duration: 0.25)));
@@ -108,10 +112,13 @@ void pickUp(List instructions) {
   print("applelocation = " + appleLocation.toString());
   if((llamaLocation == appleLocation)){
     removeApple = true;
+    //llama jumps to pick up the apple
     effectQueue.add(MoveByEffect(Vector2(0, 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
   }else{
+    //llama jumps to pick up the apple
+    //appleAvailable = false;
     effectQueue.add(MoveByEffect(Vector2(0, 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
@@ -136,5 +143,6 @@ void getMovements(List instructions){
       pickUp(instructions);
     };
   });
+  //checks to see if the list of instructions is the correct solution
   CheckSolution(instructions, levelSolution);
 }

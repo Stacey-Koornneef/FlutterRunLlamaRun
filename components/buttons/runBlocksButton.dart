@@ -54,6 +54,7 @@ class RunBlocksButton extends SpriteComponent{
 
   }
 
+  /*The move functionality has been moved to character.dart
   //moves the character to the block on the left over 1 second
   moveLeft(Character character){
     print("in moveleft");
@@ -70,7 +71,7 @@ class RunBlocksButton extends SpriteComponent{
   }
 
   //the pick up block, removes the apple
-  //TODO CHECK IF THE FUTURE WORKS (briefly removed future for debugging purposes)
+  //CHECK IF THE FUTURE WORKS (briefly removed future for debugging purposes)
   pickUp(Character character, List instructions) async{
     removeApple = true;
     print("PICKUP");
@@ -81,7 +82,7 @@ class RunBlocksButton extends SpriteComponent{
       removeApple = true;
     }
 
-  }
+  }*/
 
   }
 
