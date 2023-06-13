@@ -80,6 +80,9 @@ int level = 1;
 int llamaLocation = 22;
 int appleLocation = 12;
 
+//TODO timer
+final countdown = Timer(60);
+
 //various text messages for the use
 final style = TextStyle(color: BasicPalette.darkBlue.color);
 final regular = TextPaint(style: style);
@@ -171,6 +174,10 @@ class LlamaGame extends FlameGame with HasTappables {
       timeToUpdate = false;
       startLoad = false;
       //print("startload "+ startLoad.toString());
+    }else if ((timeToUpdate == true) && (response.instructions.length == 0)){
+      print("CAN'T FIND ANYTHING");
+      startLoad = false;
+      timeToUpdate = false;
     }
 
 
