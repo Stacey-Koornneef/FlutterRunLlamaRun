@@ -120,6 +120,7 @@ class Level {
 
     solution = ["FORWARD", "FORWARD", "PICKUP"];
 
+
   }
 
   /*

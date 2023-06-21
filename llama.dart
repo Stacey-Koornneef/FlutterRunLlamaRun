@@ -50,6 +50,8 @@ var squareSize;
 double widthOfLeft = 0;
 double widthOfRight = 0;
 var runButtonPosition;
+var continueButtonPosition;
+var getButtonPosition;
 
 
 //gets information about the level
@@ -87,6 +89,10 @@ final countdown = Timer(60);
 final style = TextStyle(color: BasicPalette.darkBlue.color);
 final regular = TextPaint(style: style);
 
+//for test instructions
+bool testInstructionsAvailable = false;
+//var testInstructions = [];
+
 TextComponent startText = TextComponent(text: 'Use the blocks to help the llama pick up the apple', textRenderer: regular)
   ..anchor = Anchor.topCenter
   ..x = (width * 0.2)
@@ -119,6 +125,7 @@ class LlamaGame extends FlameGame with HasTappables {
   static final Vector2 squareSize = Vector2(squareWidth, squareHeight);*/
   SpriteTextButton? getBlocksButton;
   SpriteTextButton? runBlocksButton;
+  SpriteTextButton? testButton;
 
   //for checking when the buttons have run
   bool blocksAvailable = false;
@@ -163,6 +170,10 @@ class LlamaGame extends FlameGame with HasTappables {
   void update(double dt){
     super.update(dt);
 
+    if(testInstructionsAvailable == true){
+
+    }
+
     //checks to see if the blocks from the picture has loaded to update loading
     if((timeToUpdate == true) && (response.instructions.length != 0)){
       var getBlocks = GetBlocks(response.instructions);
@@ -174,10 +185,22 @@ class LlamaGame extends FlameGame with HasTappables {
       timeToUpdate = false;
       startLoad = false;
       //print("startload "+ startLoad.toString());
-    }else if ((timeToUpdate == true) && (response.instructions.length == 0)){
+    /*}else if ((timeToUpdate == true) && (response.instructions.length == 0)){
       print("CAN'T FIND ANYTHING");
       startLoad = false;
+      timeToUpdate = false;*/
+    }else if(timeToUpdate == true && testInstructionsAvailable == true){
+      print("in timeToUpdate = true & testInstructionsAvailable == true");
+      var getBlocks = GetBlocks(newInstructions);
+      var newBlocks = getBlocks.blocks;
+      print("newBlocks = " + newBlocks.toString());
+      for(var i in newBlocks){
+        print("in adding blocks from testInstructionsAvailable");
+        add(i);
+        components.add(i);
+      }
       timeToUpdate = false;
+      startLoad = false;
     }
 
 
@@ -191,6 +214,13 @@ class LlamaGame extends FlameGame with HasTappables {
         loading = false;
       }
     }
+
+    if(appleAvailable == true){
+      remove(apple);
+      appleAvailable = false;
+      print("removing apple");
+    }
+
 
     //everything related to resetting the screen
     if(reset == true){
@@ -210,11 +240,11 @@ class LlamaGame extends FlameGame with HasTappables {
       //removeApple=true;
       //remove(apple);
 
-      if(appleAvailable == true){
+      /*if(appleAvailable == true){
         remove(apple);
         appleAvailable = false;
         print("removing apple");
-      }
+      }*/
 
 
       //gets new level information, in case the level changed
@@ -253,7 +283,7 @@ class LlamaGame extends FlameGame with HasTappables {
       addTryAgainButton = false;
     }
 
-    if(removeApple == true){
+    /*if(removeApple == true){
       //removeAll(apple);
       //remove(apple);
       /*print("THIS IS THE APPLE IN REMOVEAPPLE");
@@ -262,6 +292,11 @@ class LlamaGame extends FlameGame with HasTappables {
       removeApple = false;
       appleAvailable = false;
       print("removing apple");*/
+      /*if(appleAvailable == true){
+        remove(apple);
+        appleAvailable = false;
+        print("removing apple");
+      }*/
 
       if(appleAvailable == true){
         print("THIS IS THE APPLE IN REMOVEAPPLE");
@@ -275,7 +310,7 @@ class LlamaGame extends FlameGame with HasTappables {
         appleAvailable = false;
       }
 
-    }
+    }*/
 
     if(noBlocksFound == true){
       add(noBlocksText);
@@ -324,6 +359,8 @@ class LlamaGame extends FlameGame with HasTappables {
     //makes the run blocks button
     createRunBlocksButton();
 
+    createTestButton();
+
     //adds all of the blocks in level one
     for(var element in levelBlocks){
       //add(element);
@@ -334,6 +371,7 @@ class LlamaGame extends FlameGame with HasTappables {
     //components.add(apple);
     add(apple);
     add(runBlocksButton!);
+    add(testButton!);
     addAll(components);
     appleAvailable=true;
 
@@ -372,7 +410,7 @@ class LlamaGame extends FlameGame with HasTappables {
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
       priority: 5,
       scale: Vector2(0.1,0.1),
-      position: Vector2(50,30),
+      position: getButtonPosition,
       onPressed: () async{
         reset = true;
         //TODO remove(startText);
@@ -391,7 +429,7 @@ class LlamaGame extends FlameGame with HasTappables {
         print("Get Blocks");
 
         //calls getInstructions to retrieve the instructions from photo
-        getInstructions().then((value) {
+        /*getInstructions().then((value) {
           print("in await");
           print("value type: " + value.runtimeType.toString());
           print("value " + value.toString());
@@ -400,7 +438,26 @@ class LlamaGame extends FlameGame with HasTappables {
             print("element" + element.toString());
           }
 
-        });
+        });*/
+        print("getBlocks testInstructionsAvailable = " + testInstructionsAvailable.toString());
+        if(testInstructionsAvailable == true){
+          print("in test instructions available = true");
+          newInstructions = levelSolution;
+          print("newInstructions = " + newInstructions.toString());
+          timeToUpdate = true;
+        }else{
+          //calls getInstructions to retrieve the instructions from photo
+          getInstructions().then((value) {
+            print("in await");
+            print("value type: " + value.runtimeType.toString());
+            print("value " + value.toString());
+            for(var element in value){
+              newInstructions.add(element);
+              print("element" + element.toString());
+            }
+
+          });
+        }
 
       },
       text: "Get Blocks",
@@ -437,6 +494,28 @@ class LlamaGame extends FlameGame with HasTappables {
   }
 
   /*
+  creates Test button and what it needs to do when clicked
+  For testing purposes only, so camera isn't needed
+   */
+  void createTestButton(){
+    testButton = SpriteTextButton(
+      button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
+      priority: 6,
+      scale: Vector2(0.1,0.1),
+      position: continueButtonPosition,
+      onPressed: () {
+        print("Test");
+        testInstructionsAvailable = true;
+        print("createTestButton testInstructionsAvailable = " + testInstructionsAvailable.toString());
+        remove(testButton!);
+      },
+      text: "Test",
+      textXShift: -430,
+      textYShift: -250,
+    );
+  }
+
+  /*
   set the sizes of blocks based on the size of the device
    */
   void setSizes(){
@@ -461,6 +540,15 @@ class LlamaGame extends FlameGame with HasTappables {
     runButtonPosition = Vector2(runButtonX,runButtonY);
     print("RUN BUTTON POS: " + runButtonPosition.toString());
 
+    var contButtonX = squareSide;
+    var contButtonY = ((squareSide * 5) + ((squareGap +  squareRadius) * 7));
+    continueButtonPosition = Vector2(contButtonX, contButtonY);
+    print("CONT BUTTON POS: " + continueButtonPosition.toString());
+
+    var getButtonX = squareSide;
+    var getButtonY = ((squareGap + squareRadius)*2);
+    getButtonPosition = Vector2(getButtonX, getButtonY);
+    print("GET BUTTON POS: " + getButtonPosition.toString());
     //reset = true;
 
 

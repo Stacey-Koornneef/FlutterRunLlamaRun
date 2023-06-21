@@ -11,7 +11,7 @@ class Apple extends SpriteComponent{
     sprite: Sprite(Flame.images.fromCache('apple.png')),
     position: Vector2(50, 50),
     size: Vector2(50, 50),
-    priority: 3,
+    priority: 1000,
   );
 
 }

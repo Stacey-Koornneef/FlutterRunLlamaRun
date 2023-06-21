@@ -10,6 +10,7 @@ creates the character image and gives it movement
 
 final effectQueue = [];
 var moveLength = (squareSide + squareGap);
+bool applePickUp = false;
 
 
 class Character extends SpriteAnimationComponent {
@@ -44,7 +45,13 @@ class Character extends SpriteAnimationComponent {
     animation!.update(dt);
     if (effectQueue.isNotEmpty && children.query<Effect>().isEmpty) {
       add(effectQueue.removeAt(0));
+
     }
+    /*if(applePickUp == true){
+      removeApple = true;
+      applePickUp = false;
+    }*/
+
   }
 }
 
@@ -111,11 +118,17 @@ void pickUp(List instructions) {
   print("llamalocation = " + llamaLocation.toString());
   print("applelocation = " + appleLocation.toString());
   if((llamaLocation == appleLocation)){
-    removeApple = true;
+    //removeApple = true;
     //llama jumps to pick up the apple
     effectQueue.add(MoveByEffect(Vector2(0, 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
+    /*while(effectQueue.isNotEmpty) {
+      print("in while");
+    }*/
+    removeApple = true;
+    //applePickUp = true;
+
   }else{
     //llama jumps to pick up the apple
     //appleAvailable = false;
@@ -144,5 +157,7 @@ void getMovements(List instructions){
     };
   });
   //checks to see if the list of instructions is the correct solution
+
+
   CheckSolution(instructions, levelSolution);
 }

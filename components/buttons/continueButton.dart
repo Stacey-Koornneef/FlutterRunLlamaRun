@@ -24,7 +24,7 @@ class ContinueButton{
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
       priority: 1000,
       scale: Vector2(0.1,0.1),
-      position: Vector2(50,450),
+      position: continueButtonPosition,
       onPressed: () {
         //increases level
         level = level + 1;

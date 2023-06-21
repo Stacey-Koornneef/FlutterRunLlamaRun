@@ -23,7 +23,7 @@ class TryAgainButton{
       button: Sprite(Flame.images.fromCache('buttonBackground1.png')),
       priority: 200,
       scale: Vector2(0.1,0.1),
-      position: Vector2(50,450),
+      position: continueButtonPosition,
       onPressed: () {
         //resets the board without changing the level
         reset = true;
