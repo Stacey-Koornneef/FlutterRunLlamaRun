@@ -58,6 +58,7 @@ class Character extends SpriteAnimationComponent {
         if(countdown.finished) {
           removeApple = true;
           applePickUp = false;
+          timerNeeded = 0;
         }
 
     }
@@ -139,10 +140,11 @@ void pickUp(List instructions) {
     effectQueue.add(MoveByEffect(Vector2(0, 0), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, -(moveLength/10.0)), EffectController(duration: 0.25)));
     effectQueue.add(MoveByEffect(Vector2(0, (moveLength/10.0)), EffectController(duration: 0.25)));
-    timerNeeded = timerNeeded + 0.75;
+    timerNeeded = timerNeeded + 0.5;
     /*while(effectQueue.isNotEmpty) {
       print("in while");
     }*/
+    print("timerNeeded: " + timerNeeded.toString());
     countdown = Timer(timerNeeded);
     //removeApple = true;
     applePickUp = true;
