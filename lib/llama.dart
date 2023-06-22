@@ -52,6 +52,9 @@ double widthOfRight = 0;
 var runButtonPosition;
 var continueButtonPosition;
 var getButtonPosition;
+var loadingTextPositionX;
+var loadingTextPositionY;
+var loadingCharacterPosition;
 
 
 //gets information about the level
@@ -103,6 +106,12 @@ TextComponent noBlocksText = TextComponent(text: 'No blocks are found.  Take ano
   ..anchor = Anchor.topCenter
   ..x = (width * 0.2)
   ..y = (height - (height*0.75))
+  ..priority = 300;
+
+TextComponent loadingText = TextComponent(text: 'LOADING', textRenderer: regular)
+  ..anchor = Anchor.topCenter
+  ..x = loadingTextPositionX
+  ..y = loadingTextPositionY
   ..priority = 300;
 
 //bools for adding text
@@ -203,6 +212,7 @@ class LlamaGame extends FlameGame with HasTappables {
     }else if(startLoad == false){
       if(loading == true){
         remove(loadCharacter);
+        remove(loadingText);
         loading = false;
       }
     }
@@ -400,9 +410,10 @@ class LlamaGame extends FlameGame with HasTappables {
         //creates a load character while waiting for the instructions
         loadCharacter = LoadCharacter()
           ..size = (squareSize *1.75)
-          ..position = Vector2(100,100);
+          ..position = loadingCharacterPosition;
 
         add(loadCharacter);
+        add(loadingText);
         startLoad = true;
 
         blocksAvailable = true;
@@ -517,6 +528,13 @@ class LlamaGame extends FlameGame with HasTappables {
     }
     print("squareSide = " + squareSide.toString());
     squareSize = Vector2(squareSide, squareSide);
+
+    var halfHeight = height *0.5;
+    var halfLeft = widthOfLeft *0.5;
+
+    loadingTextPositionX = halfLeft + (squareSide*0.9);
+    loadingTextPositionY = (halfHeight*0.5) + (squareSide * 2);
+    loadingCharacterPosition = Vector2(halfLeft, (halfHeight*0.5));
 
     //var runButtonX = widthOfLeft = ((2*squareSide + (4* squareGap)));
     var runButtonX = widthOfLeft + (squareSide * 2.5) + ((squareGap +  squareRadius) * 3.5);
