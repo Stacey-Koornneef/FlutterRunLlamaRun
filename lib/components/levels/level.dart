@@ -26,6 +26,7 @@ class Level {
   var solution = [];
   var character;
   var apple;
+  var pavementBlocks = [];
 
   /*
   creates the basic board of grass blocks, then adjusts in the different levels
@@ -86,6 +87,7 @@ class Level {
 
     blocks.removeAt(22);
     blocks.insert(22, b1);
+    pavementBlocks.add(22);
 
     var b2 = PavementBlocks()
       ..size = squareSize
@@ -94,6 +96,7 @@ class Level {
 
     blocks.removeAt(17);
     blocks.insert(17, b2);
+    pavementBlocks.add(17);
 
     var b3 = PavementBlocks()
       ..size = squareSize
@@ -102,6 +105,7 @@ class Level {
 
     blocks.removeAt(12);
     blocks.insert(12, b3);
+    pavementBlocks.add(12);
 
     print(blocks);
 
@@ -137,6 +141,7 @@ class Level {
 
     blocks.removeAt(22);
     blocks.insert(22, b1);
+    pavementBlocks.add(22);
 
     var b2 = PavementBlocks()
       ..size = squareSize
@@ -145,6 +150,7 @@ class Level {
 
     blocks.removeAt(17);
     blocks.insert(17, b2);
+    pavementBlocks.add(17);
 
     var b3 = PavementBlocks()
       ..size = squareSize
@@ -153,6 +159,7 @@ class Level {
 
     blocks.removeAt(12);
     blocks.insert(12, b3);
+    pavementBlocks.add(12);
 
     var b4 = PavementBlocks()
       ..size = squareSize
@@ -161,6 +168,7 @@ class Level {
 
     blocks.removeAt(11);
     blocks.insert(11, b4);
+    pavementBlocks.add(11);
 
     var b5 = PavementBlocks()
       ..size = squareSize
@@ -169,6 +177,7 @@ class Level {
 
     blocks.removeAt(10);
     blocks.insert(10, b5);
+    pavementBlocks.add(10);
 
     print(blocks);
 
@@ -203,6 +212,7 @@ class Level {
 
     blocks.removeAt(22);
     blocks.insert(22, b1);
+    pavementBlocks.add(22);
 
     var b2 = PavementBlocks()
       ..size = squareSize
@@ -211,6 +221,7 @@ class Level {
 
     blocks.removeAt(21);
     blocks.insert(21, b2);
+    pavementBlocks.add(21);
 
     var b3 = PavementBlocks()
       ..size = squareSize
@@ -219,6 +230,7 @@ class Level {
 
     blocks.removeAt(16);
     blocks.insert(16, b3);
+    pavementBlocks.add(16);
 
     var b4 = PavementBlocks()
       ..size = squareSize
@@ -227,6 +239,7 @@ class Level {
 
     blocks.removeAt(11);
     blocks.insert(11, b4);
+    pavementBlocks.add(11);
 
     var b5 = PavementBlocks()
       ..size = squareSize
@@ -235,6 +248,7 @@ class Level {
 
     blocks.removeAt(12);
     blocks.insert(12, b5);
+    pavementBlocks.add(12);
 
     var b6 = PavementBlocks()
       ..size = squareSize
@@ -243,6 +257,7 @@ class Level {
 
     blocks.removeAt(13);
     blocks.insert(13, b6);
+    pavementBlocks.add(13);
 
 
     print(blocks);
@@ -278,6 +293,7 @@ class Level {
 
     blocks.removeAt(22);
     blocks.insert(22, b1);
+    pavementBlocks.add(22);
 
     var b2 = PavementBlocks()
       ..size = squareSize
@@ -286,6 +302,7 @@ class Level {
 
     blocks.removeAt(17);
     blocks.insert(17, b2);
+    pavementBlocks.add(17);
 
     var b3 = PavementBlocks()
       ..size = squareSize
@@ -294,6 +311,7 @@ class Level {
 
     blocks.removeAt(12);
     blocks.insert(12, b3);
+    pavementBlocks.add(12);
 
     var b4 = PavementBlocks()
       ..size = squareSize
@@ -302,6 +320,7 @@ class Level {
 
     blocks.removeAt(7);
     blocks.insert(7, b4);
+    pavementBlocks.add(7);
 
     var b5 = PavementBlocks()
       ..size = squareSize
@@ -310,6 +329,7 @@ class Level {
 
     blocks.removeAt(16);
     blocks.insert(16, b5);
+    pavementBlocks.add(16);
 
     var b6 = PavementBlocks()
       ..size = squareSize
@@ -318,6 +338,7 @@ class Level {
 
     blocks.removeAt(15);
     blocks.insert(15, b6);
+    pavementBlocks.add(15);
 
     var b7 = PavementBlocks()
       ..size = squareSize
@@ -326,6 +347,7 @@ class Level {
 
     blocks.removeAt(18);
     blocks.insert(18, b7);
+    pavementBlocks.add(18);
 
     var b8 = PavementBlocks()
       ..size = squareSize
@@ -334,6 +356,7 @@ class Level {
 
     blocks.removeAt(19);
     blocks.insert(19, b8);
+    pavementBlocks.add(19);
 
     print(blocks);
 

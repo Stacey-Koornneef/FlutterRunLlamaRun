@@ -63,6 +63,7 @@ var levelBlocks = levelOverall.blocks;
 var levelSolution = levelOverall.solution;
 var character = levelOverall.character;
 var apple = levelOverall.apple;
+var pavementBlocks = levelOverall.pavementBlocks;
 
 //gets information about device size
 var height;
@@ -165,7 +166,11 @@ class LlamaGame extends FlameGame with HasTappables {
     'llama_eat_1.png',
     'llama_eat_2.png',
     'llama_eat_3.png',
-    'llama_eat_4.png'
+    'llama_eat_4.png',
+    'llama_green_1.png',
+    'llama_green_2.png',
+    'llama_green_3.png',
+    'llama_green_4.png'
   ];
 
 
