@@ -86,8 +86,6 @@ int level = 1;
 int llamaLocation = 22;
 int appleLocation = 12;
 
-//TODO timer
-final countdown = Timer(60);
 
 //various text messages for the use
 final style = TextStyle(color: BasicPalette.darkBlue.color);
@@ -253,6 +251,7 @@ class LlamaGame extends FlameGame with HasTappables {
       levelSolution = levelOverall.solution;
       character = levelOverall.character;
       apple = levelOverall.apple;
+      pavementBlocks = levelOverall.pavementBlocks;
 
       //add all of the new level information
       components = [];
