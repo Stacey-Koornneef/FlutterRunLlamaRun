@@ -34,6 +34,10 @@ bool removeApple = false;
 bool appleAvailable = false;
 //for checking if the solution is correct and the apple can be picked up
 bool canPickUpApple = false;
+//for turning on and off the run button
+bool canRun = true;
+//for turning on and off the picture button
+bool canTakePicture = true;
 
 //gets information about the continue button
 var getContinueButton = ContinueButton();
@@ -211,12 +215,16 @@ class LlamaGame extends FlameGame with HasTappables {
     //creates and removes the llama loading character
     if(startLoad == true){
       //print("startload = true");
+      canTakePicture = false;
+      canRun = false;
       loading = true;
     }else if(startLoad == false){
       if(loading == true){
         remove(loadCharacter);
         remove(loadingText);
         loading = false;
+        canRun = true;
+        canTakePicture = true;
       }
     }
 
@@ -225,6 +233,7 @@ class LlamaGame extends FlameGame with HasTappables {
       print("reset");
       print(components);
       canPickUpApple = false;
+      canRun = true;
       for(var i in components){
         remove(i);
         print(i);
@@ -406,25 +415,28 @@ class LlamaGame extends FlameGame with HasTappables {
       scale: Vector2(0.1,0.1),
       position: getButtonPosition,
       onPressed: () async{
-        reset = true;
-        //TODO remove(startText);
-        /*if(startTextAvailable == true){
+        if(canTakePicture == true){
+          canTakePicture = false;
+          reset = true;
+          //TODO remove(startText);
+          /*if(startTextAvailable == true){
           remove(startText);
         }*/
-        //creates a load character while waiting for the instructions
-        loadCharacter = LoadCharacter()
-          ..size = (squareSize *1.75)
-          ..position = loadingCharacterPosition;
+          //creates a load character while waiting for the instructions
+          loadCharacter = LoadCharacter()
+            ..size = (squareSize *1.75)
+            ..position = loadingCharacterPosition;
 
-        add(loadCharacter);
-        add(loadingText);
-        startLoad = true;
+          add(loadCharacter);
+          print("adding a load character");
+          add(loadingText);
+          startLoad = true;
 
-        blocksAvailable = true;
-        print("Get Blocks");
+          blocksAvailable = true;
+          print("Get Blocks");
 
-        //calls getInstructions to retrieve the instructions from photo
-        /*getInstructions().then((value) {
+          //calls getInstructions to retrieve the instructions from photo
+          /*getInstructions().then((value) {
           print("in await");
           print("value type: " + value.runtimeType.toString());
           print("value " + value.toString());
@@ -434,29 +446,33 @@ class LlamaGame extends FlameGame with HasTappables {
           }
 
         });*/
-        print("getBlocks testInstructionsAvailable = " + testInstructionsAvailable.toString());
-        if(testInstructionsAvailable == true){
-          print("in test instructions available = true");
-          /*newInstructions = levelSolution;
+          print("getBlocks testInstructionsAvailable = " + testInstructionsAvailable.toString());
+          if(testInstructionsAvailable == true){
+            print("in test instructions available = true");
+            /*newInstructions = levelSolution;
           print("newInstructions = " + newInstructions.toString());
           timeToUpdate = true;*/
-          for(var element in levelSolution){
-            newInstructions.add(element);
-          }
-          timeToUpdate = true;
-        }else{
-          //calls getInstructions to retrieve the instructions from photo
-          getInstructions().then((value) {
-            print("in await");
-            print("value type: " + value.runtimeType.toString());
-            print("value " + value.toString());
-            for(var element in value){
+            for(var element in levelSolution){
               newInstructions.add(element);
-              print("element" + element.toString());
             }
+            timeToUpdate = true;
+          }else{
+            //calls getInstructions to retrieve the instructions from photo
+            getInstructions().then((value) {
+              print("in await");
+              print("value type: " + value.runtimeType.toString());
+              print("value " + value.toString());
+              for(var element in value){
+                newInstructions.add(element);
+                print("element" + element.toString());
+              }
 
-          });
+            });
+          }
+        }else{
+          print("take pictures disabled");
         }
+
 
       },
       text: "Get Blocks",
@@ -477,13 +493,16 @@ class LlamaGame extends FlameGame with HasTappables {
       onPressed: () {
         print("Run Blocks");
         //if the blocks are available, then makes the character move and adds the new blocks
-        if(blocksAvailable == true){
+        if(blocksAvailable == true && canRun == true){
           var getComponents = RunBlocksButton(character, response.instructions);
           var newComponents = getComponents.newComponents;
           for(var element in newComponents){
             add(element);
             components.add(element);
           }
+          canRun = false;
+        }else{
+          print("run blocks disabled");
         }
       },
       text: "Run, Llama, Run",
